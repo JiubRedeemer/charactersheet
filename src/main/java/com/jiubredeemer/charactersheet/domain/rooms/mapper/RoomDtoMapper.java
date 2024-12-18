@@ -14,11 +14,12 @@ public class RoomDtoMapper {
         return roomDto;
     }
 
-    public Room toRoomEntity(RoomDto roomDto) {
+    public Room toRoomEntity(RoomDto roomDto, boolean isNew) {
         final Room room = new Room();
         room.setRoomId(roomDto.getRoomId());
         room.setOwnerId(roomDto.getOwnerId());
         room.setRuleType(roomDto.getRuleType());
+        room.setNew(isNew);
         return room;
     }
 }

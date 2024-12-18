@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/rooms")
 @RequiredArgsConstructor
+@RequestMapping("/api/rooms")
 @Tag(name = "Room Controller", description = "Управление комнатами в системе")
 public class RoomController {
 

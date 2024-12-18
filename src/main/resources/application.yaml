@@ -1,0 +1,13 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: charactersheet
+  datasource:
+    password: pd
+    url: jdbc:postgresql://localhost:5432/charactersheet
+    username: pd
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false

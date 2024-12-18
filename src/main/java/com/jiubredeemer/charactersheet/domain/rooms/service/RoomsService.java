@@ -17,7 +17,7 @@ public class RoomsService {
 
     public RoomDto saveOrGetRoom(RoomDto roomDto) {
         return roomRepository.findByRoomId(roomDto.getRoomId()).map(roomDtoMapper::toRoomDto).orElseGet(() ->
-                roomDtoMapper.toRoomDto(roomRepository.save(roomDtoMapper.toRoomEntity(roomDto))));
+                roomDtoMapper.toRoomDto(roomRepository.save(roomDtoMapper.toRoomEntity(roomDto, true))));
     }
 
     public RoomDto getById(UUID roomId) {

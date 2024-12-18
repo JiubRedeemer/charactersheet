@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+">
+    <changeSet id="PRO-24:Pre-Init:11.09.2024" author="jiubredeemer">
+        <sql>DROP SCHEMA IF EXISTS charactersheet cascade</sql>
+    </changeSet>
+
+    <changeSet id="PRO-24:schema-Init:11.09.2024" author="jiubredeemer">
+        <sql>CREATE SCHEMA charactersheet</sql>
+    </changeSet>
+
+    <changeSet id="PRO-24:Init:11.09.2024" author="jiubredeemer">
+        <sqlFile path="001-PRO-18-initial.sql" relativeToChangelogFile="true" splitStatements="false"/>
+    </changeSet>
+
+</databaseChangeLog>
