@@ -23,4 +23,8 @@ public class RoomsService {
     public RoomDto getById(UUID roomId) {
         return roomRepository.findByRoomId(roomId).map(roomDtoMapper::toRoomDto).orElseThrow(() -> new NotFoundException("Room not found by id"));
     }
+
+    public void deleteRoom(UUID roomId) {
+        roomRepository.deleteById(roomId);
+    }
 }
