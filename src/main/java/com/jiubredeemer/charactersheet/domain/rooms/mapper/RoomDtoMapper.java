@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RoomDtoMapper {
-    public RoomDto toRoomDto(Room room) {
+    public RoomDto toDto(Room room) {
         final RoomDto roomDto = new RoomDto();
         roomDto.setRoomId(room.getRoomId());
         roomDto.setOwnerId(room.getOwnerId());
@@ -14,7 +14,7 @@ public class RoomDtoMapper {
         return roomDto;
     }
 
-    public Room toRoomEntity(RoomDto roomDto, boolean isNew) {
+    public Room toEntity(RoomDto roomDto, boolean isNew) {
         final Room room = new Room();
         room.setRoomId(roomDto.getRoomId());
         room.setOwnerId(roomDto.getOwnerId());

@@ -16,6 +16,7 @@ CREATE TABLE charactersheet.character
     proficiency_bonus int4 NOT NULL,
     armory_class      int4 NOT NULL,
     speed             int4 NOT NULL,
+    inspiration       int4 NOT NULL,
     PRIMARY KEY (id)
 );
 CREATE TABLE charactersheet.character_bio

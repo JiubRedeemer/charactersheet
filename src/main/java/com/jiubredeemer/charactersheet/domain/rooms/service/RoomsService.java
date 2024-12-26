@@ -16,12 +16,12 @@ public class RoomsService {
     private final RoomDtoMapper roomDtoMapper;
 
     public RoomDto saveOrGetRoom(RoomDto roomDto) {
-        return roomRepository.findByRoomId(roomDto.getRoomId()).map(roomDtoMapper::toRoomDto).orElseGet(() ->
-                roomDtoMapper.toRoomDto(roomRepository.save(roomDtoMapper.toRoomEntity(roomDto, true))));
+        return roomRepository.findByRoomId(roomDto.getRoomId()).map(roomDtoMapper::toDto).orElseGet(() ->
+                roomDtoMapper.toDto(roomRepository.save(roomDtoMapper.toEntity(roomDto, true))));
     }
 
     public RoomDto getById(UUID roomId) {
-        return roomRepository.findByRoomId(roomId).map(roomDtoMapper::toRoomDto).orElseThrow(() -> new NotFoundException("Room not found by id"));
+        return roomRepository.findByRoomId(roomId).map(roomDtoMapper::toDto).orElseThrow(() -> new NotFoundException("Room not found by id"));
     }
 
     public void deleteRoom(UUID roomId) {
