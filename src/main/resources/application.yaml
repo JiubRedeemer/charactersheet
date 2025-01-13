@@ -11,3 +11,15 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     open-in-view: false
+project-d:
+  integrations:
+    rule-book:
+      base-url: http://localhost:8081
+      rooms-url: /api/rooms
+      room-rules-url: /api/rooms/{0}/rules
+      races-url: /api/races
+      classes-url: /api/classes
+      abilities-url: /api/abilities
+      skills-url: /api/skills
+      skills-by-code-url: /api/skills/byCode
+      skills-by-class-url: /api/skills/byClass

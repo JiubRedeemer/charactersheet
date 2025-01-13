@@ -10,13 +10,14 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.UUID;
 
 @Data
-@Table(name = "characters", schema = "charactersheet")
+@Table(name = "character", schema = "charactersheet")
 public class Character implements Persistable<UUID> {
     @Id
     private UUID id;
+    private UUID userId;
     private UUID roomId;
     private String name;
-    private String classCode;
+    private String clazzCode;
     private String raceCode;
     private Integer proficiencyBonus;
     private Integer armoryClass;

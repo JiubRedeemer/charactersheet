@@ -1,7 +1,6 @@
 package com.jiubredeemer.charactersheet.dal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.jiubredeemer.charactersheet.domain.room.dto.RuleTypeEnum;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -11,12 +10,13 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.UUID;
 
 @Data
-@Table(name = "room", schema = "charactersheet")
-public class Room implements Persistable<UUID> {
+@Table(name = "health", schema = "charactersheet")
+public class Health implements Persistable<UUID> {
     @Id
-    private UUID roomId;
-    private UUID ownerId;
-    private RuleTypeEnum ruleType;
+    private UUID characterId;
+    private Long currentHp;
+    private Long maxHp;
+    private Long tempHp;
 
 
     //-----META_FIELDS------
@@ -26,7 +26,7 @@ public class Room implements Persistable<UUID> {
 
     @Override
     public UUID getId() {
-        return roomId;
+        return characterId;
     }
 
     public void setNew(boolean newInstance) {
@@ -39,4 +39,3 @@ public class Room implements Persistable<UUID> {
         return newEntity;
     }
 }
-

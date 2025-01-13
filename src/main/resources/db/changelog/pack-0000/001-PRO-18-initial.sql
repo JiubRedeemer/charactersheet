@@ -1,4 +1,4 @@
-CREATE TABLE charactersheet.rooms
+CREATE TABLE charactersheet.room
 (
     room_id   uuid NOT NULL,
     owner_id  uuid NOT NULL,
@@ -33,10 +33,10 @@ CREATE TABLE charactersheet.character_bio
     weaknesses    text,
     PRIMARY KEY (character_id)
 );
-CREATE TABLE charactersheet.abilities
+CREATE TABLE charactersheet.ability
 (
     id           uuid NOT NULL,
-    character_id uuid NOT NULL UNIQUE,
+    character_id uuid NOT NULL,
     code         text NOT NULL UNIQUE,
     value        int8 NOT NULL,
     PRIMARY KEY (id)
@@ -56,23 +56,22 @@ CREATE TABLE charactersheet.health
     temp_hp      int8 NOT NULL,
     PRIMARY KEY (character_id)
 );
-CREATE TABLE charactersheet.skills
+CREATE TABLE charactersheet.skill
 (
     id           uuid NOT NULL,
     character_id uuid NOT NULL,
-    type         text NOT NULL,
     code         text NOT NULL,
     PRIMARY KEY (id)
 );
 ALTER TABLE charactersheet.character
-    ADD CONSTRAINT FKcharacter712808 FOREIGN KEY (room_id) REFERENCES charactersheet.rooms (room_id);
+    ADD CONSTRAINT FKcharacter712808 FOREIGN KEY (room_id) REFERENCES charactersheet.room (room_id);
 ALTER TABLE charactersheet.character_bio
     ADD CONSTRAINT FKcharacter_618589 FOREIGN KEY (character_id) REFERENCES charactersheet.character (id);
-ALTER TABLE charactersheet.abilities
+ALTER TABLE charactersheet.ability
     ADD CONSTRAINT FKabilities379312 FOREIGN KEY (character_id) REFERENCES charactersheet.character (id);
 ALTER TABLE charactersheet.level
     ADD CONSTRAINT FKlevel862424 FOREIGN KEY (character_id) REFERENCES charactersheet.character (id);
 ALTER TABLE charactersheet.health
     ADD CONSTRAINT FKhealth267451 FOREIGN KEY (character_id) REFERENCES charactersheet.character (id);
-ALTER TABLE charactersheet.skills
+ALTER TABLE charactersheet.skill
     ADD CONSTRAINT FKskills567252 FOREIGN KEY (character_id) REFERENCES charactersheet.character (id);
