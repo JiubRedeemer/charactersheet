@@ -4,6 +4,8 @@ import com.jiubredeemer.charactersheet.dal.entity.CharacterBio;
 import com.jiubredeemer.charactersheet.domain.characterBio.dto.CharacterBioDto;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class CharacterBioDtoMapper {
     public CharacterBioDto toDto(CharacterBio entity) {
@@ -19,6 +21,10 @@ public class CharacterBioDtoMapper {
         model.setRelationships(entity.getRelationships());
         model.setWeaknesses(entity.getWeaknesses());
         return model;
+    }
+
+    public List<CharacterBioDto> toDto(List<CharacterBio> entity) {
+        return entity.stream().map(this::toDto).toList();
     }
 
     public CharacterBio toEntity(CharacterBioDto model, boolean isNew) {

@@ -4,6 +4,8 @@ import com.jiubredeemer.charactersheet.dal.entity.Level;
 import com.jiubredeemer.charactersheet.domain.level.dto.LevelDto;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class LevelDtoMapper {
 
@@ -22,5 +24,9 @@ public class LevelDtoMapper {
         model.setLevel(entity.getLevel());
         model.setXp(entity.getXp());
         return model;
+    }
+
+    public List<LevelDto> toDto(List<Level> entity) {
+        return entity.stream().map(this::toDto).toList();
     }
 }

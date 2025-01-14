@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -24,5 +25,13 @@ public class AbilityService {
 
     public Long getValueByCode(UUID characterId, String characteristicCode) {
         return repository.findByCharacterIdAndCode(characterId, characteristicCode).orElseThrow().getValue();
+    }
+
+    public List<AbilityDto> findAllByCharacterId(UUID characterId) {
+        return mapper.toDto(repository.findByCharacterId(characterId));
+    }
+
+    public List<AbilityDto> findAllByCharacterIds(Set<UUID> characterIds) {
+        return mapper.toDto(repository.findByCharacterIdIn(characterIds));
     }
 }

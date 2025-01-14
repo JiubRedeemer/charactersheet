@@ -4,6 +4,8 @@ import com.jiubredeemer.charactersheet.dal.entity.Ability;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -11,4 +13,7 @@ import java.util.UUID;
 public interface AbilityRepository extends CrudRepository<Ability, UUID> {
     Optional<Ability> findByCharacterIdAndCode(UUID characterId, String code);
 
+    List<Ability> findByCharacterId(UUID characterId);
+
+    List<Ability> findByCharacterIdIn(Collection<UUID> characterIds);
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-public class CreateCharacterDto {
+public class CreateCharacterRequest {
     private UUID roomId;
     private UUID userId;
     private String name;

@@ -4,6 +4,8 @@ import com.jiubredeemer.charactersheet.dal.entity.Health;
 import com.jiubredeemer.charactersheet.domain.health.dto.HealthDto;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class HealthDtoMapper {
     public HealthDto toDto(Health entity) {
@@ -13,6 +15,10 @@ public class HealthDtoMapper {
         model.setMaxHp(entity.getMaxHp());
         model.setTempHp(entity.getTempHp());
         return model;
+    }
+
+    public List<HealthDto> toDto(List<Health> entity) {
+        return entity.stream().map(this::toDto).toList();
     }
 
     public Health toEntity(HealthDto model, boolean isNew) {
