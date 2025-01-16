@@ -50,7 +50,8 @@ public class CharacterService {
             final long dexValue = abilityUtils.getAbilityValueByCode(createCharacterRequest.getAbilities(), "DEX");
             characterEntity.setArmoryClass(10 + (((int) dexValue - 10) / 2));
             characterEntity.setSpeed(raceByCode.getStats().getBaseSpeed());
-            characterEntity.setInspiration(((int) dexValue - 10) / 2);
+            characterEntity.setInspiration(0);
+            characterEntity.setInitiative(((int) dexValue - 10) / 2);
             Character savedEntity = characterRepository.save(characterEntity);
             //----------SAVED-----------
             CharacterDto characterDto = characterDtoMapper.toDto(savedEntity);
@@ -85,6 +86,35 @@ public class CharacterService {
                 .map(characterBuilder::enrichLevel)
                 .map(characterBuilder::enrichHealth)
                 .map(characterBuilder::enrichCharacterBio)
+                .map(characterBuilder::enrichRaceInfo)
+                .map(characterBuilder::enrichClassInfo)
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("Character was found, but was not built with id: " + id));
+    }
+
+    public CharacterDto getHeaderInfoByCharacterId(UUID id) {
+        return Stream.of(characterDtoMapper.toDto(characterRepository.findById(id)
+                        .orElseThrow(() -> new NotFoundException("Character not found by id " + id))))
+                .map(characterBuilder::enrichLevel)
+                .map(characterBuilder::enrichRaceInfo)
+                .map(characterBuilder::enrichClassInfo)
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("Character was found, but was not built with id: " + id));
+    }
+
+    public CharacterDto getSubheaderInfoByCharacterId(UUID id) {
+        return Stream.of(characterDtoMapper.toDto(characterRepository.findById(id)
+                        .orElseThrow(() -> new NotFoundException("Character not found by id " + id))))
+                .map(characterBuilder::enrichHealth)
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("Character was found, but was not built with id: " + id));
+    }
+
+    public CharacterDto getAbilitiesAndSkillsInfoByCharacterId(UUID id) {
+        return Stream.of(characterDtoMapper.toDto(characterRepository.findById(id)
+                        .orElseThrow(() -> new NotFoundException("Character not found by id " + id))))
+                .map(characterBuilder::enrichAbilities)
+                .map(characterBuilder::enrichSkills)
                 .findAny()
                 .orElseThrow(() -> new IllegalStateException("Character was found, but was not built with id: " + id));
     }

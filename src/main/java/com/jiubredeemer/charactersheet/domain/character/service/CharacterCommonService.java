@@ -57,7 +57,7 @@ public class CharacterCommonService {
         final LevelDto levelDto = new LevelDto();
         levelDto.setCharacterId(characterDto.getId());
         levelDto.setLevel(levelInfoEnum.getLevel());
-        levelDto.setXp(levelInfoEnum.getXp());
+        levelDto.setXp(0L);
         return levelService.saveLevel(levelDto);
     }
 

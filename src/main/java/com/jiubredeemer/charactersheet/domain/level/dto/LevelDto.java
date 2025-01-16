@@ -9,4 +9,5 @@ public class LevelDto {
     private UUID characterId;
     private Long level;
     private Long xp;
+    private Long nextLevelXp;
 }

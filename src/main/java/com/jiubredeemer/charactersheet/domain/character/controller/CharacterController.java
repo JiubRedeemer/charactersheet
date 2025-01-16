@@ -26,17 +26,38 @@ public class CharacterController {
         return characterService.saveCharacter(request);
     }
 
-    @GetMapping()
+    @PostMapping()
     public List<CharacterDto> findAllByRoomIdAndUserId(
             @Parameter(description = "Найти персонажей по ID комнаты и пользователя", required = true)
             @RequestBody FindCharacterByUserIdAndRoomIdRequest request) {
         return characterService.findAllByRoomIdAndUserId(request);
     }
 
-    @GetMapping("/{id}")
+    @PostMapping("/{id}")
     public CharacterDto findById(
             @Parameter(description = "Найти персонажа по ID", required = true)
             @PathVariable UUID id) {
         return characterService.findById(id);
+    }
+
+    @PostMapping("/{id}/header")
+    public CharacterDto getHeaderInfoByCharacterId(
+            @Parameter(description = "Получить имя, расу, класс и уровень персонажа по ID", required = true)
+            @PathVariable UUID id) {
+        return characterService.getHeaderInfoByCharacterId(id);
+    }
+
+    @PostMapping("/{id}/subheader")
+    public CharacterDto getSubheaderInfoByCharacterId(
+            @Parameter(description = "Получить КБ, скорость и хп персонажа по ID", required = true)
+            @PathVariable UUID id) {
+        return characterService.getSubheaderInfoByCharacterId(id);
+    }
+
+    @PostMapping("/{id}/abilities")
+    public CharacterDto getAbilitiesAndSkillsInfoByCharacterId(
+            @Parameter(description = "Получить характеристики и навыки персонажа по ID", required = true)
+            @PathVariable UUID id) {
+        return characterService.getAbilitiesAndSkillsInfoByCharacterId(id);
     }
 }

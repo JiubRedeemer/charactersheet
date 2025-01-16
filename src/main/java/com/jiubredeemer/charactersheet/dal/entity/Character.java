@@ -23,6 +23,7 @@ public class Character implements Persistable<UUID> {
     private Integer armoryClass;
     private Integer speed;
     private Integer inspiration;
+    private Integer initiative;
 
 
     //-----META_FIELDS------

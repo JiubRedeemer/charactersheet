@@ -17,11 +17,14 @@ public class CharacterDto {
     private UUID userId;
     private String name;
     private String clazzCode;
+    private ClassInfoDto clazzInfo;
     private String raceCode;
+    private RaceInfoDto raceInfo;
     private Integer proficiencyBonus;
     private Integer armoryClass;
     private Integer speed;
     private Integer inspiration;
+    private Integer initiative;
     private List<AbilityDto> abilities;
     private List<SkillDto> skills;
     private LevelDto level;

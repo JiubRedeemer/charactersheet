@@ -33,6 +33,7 @@ public class CharacterDtoMapper {
         characterDto.setArmoryClass(entity.getArmoryClass());
         characterDto.setSpeed(entity.getSpeed());
         characterDto.setInspiration(entity.getInspiration());
+        characterDto.setInitiative(entity.getInitiative());
         return characterDto;
     }
 
