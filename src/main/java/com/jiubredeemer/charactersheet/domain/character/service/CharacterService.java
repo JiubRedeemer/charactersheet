@@ -75,7 +75,10 @@ public class CharacterService {
                 .findAny()
                 .orElseThrow(() ->
                         new IllegalStateException("Characters was found, but was not built with roomId: %s and userId: %s"
-                                .formatted(request.getRoomId(), request.getUserId())));
+                                .formatted(request.getRoomId(), request.getUserId())))
+                .stream()
+                .map(characterBuilder::enrichRaceInfo) //FIXME сделать нормально
+                .map(characterBuilder::enrichClassInfo).toList();
     }
 
     public CharacterDto findById(UUID id) {
