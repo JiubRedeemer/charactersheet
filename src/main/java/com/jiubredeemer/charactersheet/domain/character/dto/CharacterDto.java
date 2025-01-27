@@ -22,12 +22,16 @@ public class CharacterDto {
     private RaceInfoDto raceInfo;
     private Integer proficiencyBonus;
     private Integer armoryClass;
+    private Integer bonusArmoryClass;
     private Integer speed;
+    private Integer bonusSpeed;
     private Integer inspiration;
     private Integer initiative;
+    private Integer bonusInitiative;
     private List<AbilityDto> abilities;
     private List<SkillDto> skills;
     private LevelDto level;
     private HealthDto health;
     private CharacterBioDto characterBio;
+
 }

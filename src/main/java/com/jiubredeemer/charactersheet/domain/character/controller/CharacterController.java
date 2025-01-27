@@ -4,7 +4,9 @@ import com.jiubredeemer.charactersheet.domain.character.dto.CharacterDto;
 import com.jiubredeemer.charactersheet.domain.character.dto.CreateCharacterRequest;
 import com.jiubredeemer.charactersheet.domain.character.dto.FindCharacterByUserIdAndRoomIdRequest;
 import com.jiubredeemer.charactersheet.domain.character.service.CharacterService;
+import com.jiubredeemer.charactersheet.domain.util.dto.BonusValueUpdateRequest;
 import io.swagger.v3.oas.annotations.Parameter;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,31 +35,58 @@ public class CharacterController {
         return characterService.findAllByRoomIdAndUserId(request);
     }
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public CharacterDto findById(
             @Parameter(description = "Найти персонажа по ID", required = true)
             @PathVariable UUID id) {
         return characterService.findById(id);
     }
 
-    @PostMapping("/{id}/header")
+    @GetMapping("/{id}/header")
     public CharacterDto getHeaderInfoByCharacterId(
             @Parameter(description = "Получить имя, расу, класс и уровень персонажа по ID", required = true)
             @PathVariable UUID id) {
         return characterService.getHeaderInfoByCharacterId(id);
     }
 
-    @PostMapping("/{id}/subheader")
+    @GetMapping("/{id}/subheader")
     public CharacterDto getSubheaderInfoByCharacterId(
             @Parameter(description = "Получить КБ, скорость и хп персонажа по ID", required = true)
             @PathVariable UUID id) {
         return characterService.getSubheaderInfoByCharacterId(id);
     }
 
-    @PostMapping("/{id}/abilities")
+    @GetMapping("/{id}/abilities")
     public CharacterDto getAbilitiesAndSkillsInfoByCharacterId(
             @Parameter(description = "Получить характеристики и навыки персонажа по ID", required = true)
             @PathVariable UUID id) {
         return characterService.getAbilitiesAndSkillsInfoByCharacterId(id);
+    }
+
+    @PatchMapping("/{id}/armoryClass/bonus")
+    public ResponseEntity<Void> updateArmoryClassBonusValue(
+            @Parameter(description = "Запрос на изменение бонусного значения КЗ персонажа", required = true)
+            @RequestBody BonusValueUpdateRequest request,
+            @PathVariable UUID id) {
+        characterService.updateArmoryClassBonusValue(id, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{id}/speed/bonus")
+    public ResponseEntity<Void> updateSpeedBonusValue(
+            @Parameter(description = "Запрос на изменение бонусного значения скорости персонажа", required = true)
+            @RequestBody BonusValueUpdateRequest request,
+            @PathVariable UUID id) {
+        characterService.updateSpeedBonusValue(id, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/{id}/initiative/bonus")
+    public ResponseEntity<Void> updateInitiativeBonusValue(
+            @Parameter(description = "Запрос на изменение бонусного значения инициативы персонажа", required = true)
+            @RequestBody BonusValueUpdateRequest request,
+            @PathVariable UUID id) {
+        characterService.updateInitiativeBonusValue(id, request);
+        return ResponseEntity.ok().build();
     }
 }

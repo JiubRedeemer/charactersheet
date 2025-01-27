@@ -67,12 +67,14 @@ public class CharacterCommonService {
         healthDto.setMaxHp(hpCalculator.calculate(clazzDto.getStats().getHpDice(), characterDto.getId()));
         healthDto.setTempHp(0L);
         healthDto.setCurrentHp(healthDto.getMaxHp());
+        healthDto.setBonusValue(0L);
         return healthService.saveHealth(healthDto);
     }
 
     public List<AbilityDto> createAbilities(CharacterDto characterDto, List<AbilityShort> abilities) {
         final List<AbilityDto> abilitiesForSave = abilities.stream().map(abilityShort -> {
             final AbilityDto ability = abilityDtoMapper.mapAbilityShortToDto(abilityShort);
+            ability.setBonusValue(0L);
             ability.setCharacterId(characterDto.getId());
             ability.setId(UUID.randomUUID());
             return ability;

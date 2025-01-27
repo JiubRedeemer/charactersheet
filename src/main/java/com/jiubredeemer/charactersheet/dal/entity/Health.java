@@ -17,6 +17,7 @@ public class Health implements Persistable<UUID> {
     private Long currentHp;
     private Long maxHp;
     private Long tempHp;
+    private Long bonusValue;
 
 
     //-----META_FIELDS------

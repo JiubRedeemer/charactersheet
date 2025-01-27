@@ -11,6 +11,7 @@ import com.jiubredeemer.charactersheet.domain.clazz.service.ClazzIntegrationServ
 import com.jiubredeemer.charactersheet.domain.race.service.RaceIntegrationService;
 import com.jiubredeemer.charactersheet.domain.room.dto.RuleTypeEnum;
 import com.jiubredeemer.charactersheet.domain.util.AbilityUtils;
+import com.jiubredeemer.charactersheet.domain.util.dto.BonusValueUpdateRequest;
 import com.jiubredeemer.charactersheet.exceptions.NotFoundException;
 import com.jiubredeemer.charactersheet.integration.RuleBookClient;
 import com.jiubredeemer.charactersheet.integration.dto.clazz.ClazzDto;
@@ -27,7 +28,7 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class CharacterService {
-    private final CharacterRepository characterRepository;
+    private final CharacterRepository repository;
     private final CharacterDtoMapper characterDtoMapper;
     private final RaceIntegrationService raceIntegrationService;
     private final ClazzIntegrationService clazzIntegrationService;
@@ -49,10 +50,13 @@ public class CharacterService {
             characterEntity.setProficiencyBonus(LevelInfoEnum.LVL_1.getProficiencyBonus());
             final long dexValue = abilityUtils.getAbilityValueByCode(createCharacterRequest.getAbilities(), "DEX");
             characterEntity.setArmoryClass(10 + (((int) dexValue - 10) / 2));
+            characterEntity.setBonusArmoryClass(0);
             characterEntity.setSpeed(raceByCode.getStats().getBaseSpeed());
+            characterEntity.setBonusSpeed(0);
             characterEntity.setInspiration(0);
             characterEntity.setInitiative(((int) dexValue - 10) / 2);
-            Character savedEntity = characterRepository.save(characterEntity);
+            characterEntity.setBonusInitiative(0);
+            Character savedEntity = repository.save(characterEntity);
             //----------SAVED-----------
             CharacterDto characterDto = characterDtoMapper.toDto(savedEntity);
             characterDto.setAbilities(characterCommonService.createAbilities(characterDto, createCharacterRequest.getAbilities()));
@@ -69,7 +73,7 @@ public class CharacterService {
 
     public List<CharacterDto> findAllByRoomIdAndUserId(FindCharacterByUserIdAndRoomIdRequest request) {
         return Stream.of(characterDtoMapper
-                        .toDto(characterRepository.findByRoomIdAndUserId(request.getRoomId(), request.getUserId())))
+                        .toDto(repository.findByRoomIdAndUserId(request.getRoomId(), request.getUserId())))
                 .map(characterBuilder::enrichLevel)
                 .map(characterBuilder::enrichHealth)
                 .findAny()
@@ -82,7 +86,7 @@ public class CharacterService {
     }
 
     public CharacterDto findById(UUID id) {
-        return Stream.of(characterDtoMapper.toDto(characterRepository.findById(id)
+        return Stream.of(characterDtoMapper.toDto(repository.findById(id)
                         .orElseThrow(() -> new NotFoundException("Character not found by id " + id))))
                 .map(characterBuilder::enrichAbilities)
                 .map(characterBuilder::enrichSkills)
@@ -96,7 +100,7 @@ public class CharacterService {
     }
 
     public CharacterDto getHeaderInfoByCharacterId(UUID id) {
-        return Stream.of(characterDtoMapper.toDto(characterRepository.findById(id)
+        return Stream.of(characterDtoMapper.toDto(repository.findById(id)
                         .orElseThrow(() -> new NotFoundException("Character not found by id " + id))))
                 .map(characterBuilder::enrichLevel)
                 .map(characterBuilder::enrichRaceInfo)
@@ -106,7 +110,7 @@ public class CharacterService {
     }
 
     public CharacterDto getSubheaderInfoByCharacterId(UUID id) {
-        return Stream.of(characterDtoMapper.toDto(characterRepository.findById(id)
+        return Stream.of(characterDtoMapper.toDto(repository.findById(id)
                         .orElseThrow(() -> new NotFoundException("Character not found by id " + id))))
                 .map(characterBuilder::enrichHealth)
                 .findAny()
@@ -114,11 +118,38 @@ public class CharacterService {
     }
 
     public CharacterDto getAbilitiesAndSkillsInfoByCharacterId(UUID id) {
-        return Stream.of(characterDtoMapper.toDto(characterRepository.findById(id)
+        return Stream.of(characterDtoMapper.toDto(repository.findById(id)
                         .orElseThrow(() -> new NotFoundException("Character not found by id " + id))))
                 .map(characterBuilder::enrichAbilities)
                 .map(characterBuilder::enrichSkills)
                 .findAny()
                 .orElseThrow(() -> new IllegalStateException("Character was found, but was not built with id: " + id));
+    }
+
+    public void updateArmoryClassBonusValue(UUID id, BonusValueUpdateRequest request) {
+        repository.findById(id).ifPresentOrElse(character -> {
+            character.setBonusArmoryClass(request.getBonusValue().intValue());
+            repository.save(character);
+        }, () -> {
+            throw new NotFoundException("Character not found by id " + id);
+        });
+    }
+
+    public void updateSpeedBonusValue(UUID id, BonusValueUpdateRequest request) {
+        repository.findById(id).ifPresentOrElse(character -> {
+            character.setBonusSpeed(request.getBonusValue().intValue());
+            repository.save(character);
+        }, () -> {
+            throw new NotFoundException("Character not found by id " + id);
+        });
+    }
+
+    public void updateInitiativeBonusValue(UUID id, BonusValueUpdateRequest request) {
+        repository.findById(id).ifPresentOrElse(character -> {
+            character.setBonusInitiative(request.getBonusValue().intValue());
+            repository.save(character);
+        }, () -> {
+            throw new NotFoundException("Character not found by id " + id);
+        });
     }
 }

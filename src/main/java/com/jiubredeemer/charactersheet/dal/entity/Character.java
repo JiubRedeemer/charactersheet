@@ -21,9 +21,12 @@ public class Character implements Persistable<UUID> {
     private String raceCode;
     private Integer proficiencyBonus;
     private Integer armoryClass;
+    private Integer bonusArmoryClass;
     private Integer speed;
+    private Integer bonusSpeed;
     private Integer inspiration;
     private Integer initiative;
+    private Integer bonusInitiative;
 
 
     //-----META_FIELDS------

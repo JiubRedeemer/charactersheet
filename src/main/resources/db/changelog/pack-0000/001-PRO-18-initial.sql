@@ -38,7 +38,7 @@ CREATE TABLE charactersheet.ability
 (
     id           uuid NOT NULL,
     character_id uuid NOT NULL,
-    code         text NOT NULL UNIQUE,
+    code         text NOT NULL,
     value        int8 NOT NULL,
     PRIMARY KEY (id)
 );

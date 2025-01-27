@@ -4,10 +4,13 @@ import com.jiubredeemer.charactersheet.dal.entity.Ability;
 import com.jiubredeemer.charactersheet.dal.repository.AbilityRepository;
 import com.jiubredeemer.charactersheet.domain.ability.dto.AbilityDto;
 import com.jiubredeemer.charactersheet.domain.ability.mapper.AbilityDtoMapper;
+import com.jiubredeemer.charactersheet.domain.util.dto.BonusValueUpdateRequest;
+import com.jiubredeemer.charactersheet.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -33,5 +36,17 @@ public class AbilityService {
 
     public List<AbilityDto> findAllByCharacterIds(Set<UUID> characterIds) {
         return mapper.toDto(repository.findByCharacterIdIn(characterIds));
+    }
+
+    public void updateBonusValueByCode(UUID characterId,
+                                       String abilityCode,
+                                       BonusValueUpdateRequest request) {
+        final Optional<Ability> abilityFromDb = repository.findByCharacterIdAndCode(characterId, abilityCode);
+        abilityFromDb.ifPresentOrElse(ability -> {
+            ability.setBonusValue(request.getBonusValue());
+            repository.save(ability);
+        }, () -> {
+            throw new NotFoundException("Ability not found by code");
+        });
     }
 }

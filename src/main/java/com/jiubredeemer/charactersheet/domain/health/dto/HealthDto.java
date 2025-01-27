@@ -10,4 +10,5 @@ public class HealthDto {
     private Long currentHp;
     private Long maxHp;
     private Long tempHp;
+    private Long bonusValue;
 }

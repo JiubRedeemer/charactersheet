@@ -17,6 +17,7 @@ public class Ability implements Persistable<UUID> {
     private UUID characterId;
     private String code;
     private Long value;
+    private Long bonusValue;
 
     //-----META_FIELDS------
     @Transient

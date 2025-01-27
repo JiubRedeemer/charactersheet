@@ -14,6 +14,7 @@ public class HealthDtoMapper {
         model.setCurrentHp(entity.getCurrentHp());
         model.setMaxHp(entity.getMaxHp());
         model.setTempHp(entity.getTempHp());
+        model.setBonusValue(entity.getBonusValue());
         return model;
     }
 
