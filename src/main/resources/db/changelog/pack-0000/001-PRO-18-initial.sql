@@ -7,17 +7,20 @@ CREATE TABLE charactersheet.room
 );
 CREATE TABLE charactersheet.character
 (
-    id                uuid NOT NULL,
-    room_id           uuid NOT NULL,
-    user_id           uuid NOT NULL,
-    name              text NOT NULL,
-    clazz_code        text NOT NULL,
-    race_code         text NOT NULL,
-    proficiency_bonus int4 NOT NULL,
-    armory_class      int4 NOT NULL,
-    speed             int4 NOT NULL,
-    inspiration       int4 NOT NULL,
-    initiative        int4 NOT NULL,
+    id                 uuid NOT NULL,
+    room_id            uuid NOT NULL,
+    user_id            uuid NOT NULL,
+    name               text NOT NULL,
+    clazz_code         text NOT NULL,
+    race_code          text NOT NULL,
+    proficiency_bonus  int4 NOT NULL,
+    armory_class       int4 NOT NULL,
+    bonus_armory_class int4 NOT NULL DEFAULT 0,
+    speed              int4 NOT NULL,
+    bonus_speed        int4 NOT NULL DEFAULT 0,
+    inspiration        int4 NOT NULL,
+    initiative         int4 NOT NULL,
+    bonus_initiative   int4 NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 );
 CREATE TABLE charactersheet.character_bio
@@ -40,6 +43,7 @@ CREATE TABLE charactersheet.ability
     character_id uuid NOT NULL,
     code         text NOT NULL,
     value        int8 NOT NULL,
+    bonus_value  int8 NOT NULL DEFAULT 0,
     PRIMARY KEY (id)
 );
 CREATE TABLE charactersheet.level
@@ -55,6 +59,7 @@ CREATE TABLE charactersheet.health
     current_hp   int8 NOT NULL,
     max_hp       int8 NOT NULL,
     temp_hp      int8 NOT NULL,
+    bonus_value  int8 NOT NULL DEFAULT 0,
     PRIMARY KEY (character_id)
 );
 CREATE TABLE charactersheet.skill

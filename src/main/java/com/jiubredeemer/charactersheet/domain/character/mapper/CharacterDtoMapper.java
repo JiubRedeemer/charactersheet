@@ -31,9 +31,12 @@ public class CharacterDtoMapper {
         characterDto.setRaceCode(entity.getRaceCode());
         characterDto.setProficiencyBonus(entity.getProficiencyBonus());
         characterDto.setArmoryClass(entity.getArmoryClass());
+        characterDto.setBonusArmoryClass(entity.getBonusArmoryClass());
         characterDto.setSpeed(entity.getSpeed());
+        characterDto.setBonusSpeed(entity.getBonusSpeed());
         characterDto.setInspiration(entity.getInspiration());
         characterDto.setInitiative(entity.getInitiative());
+        characterDto.setBonusInitiative(entity.getBonusInitiative());
         return characterDto;
     }
 

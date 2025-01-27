@@ -34,6 +34,7 @@ public class AbilityDtoMapper {
         entity.setCharacterId(model.getCharacterId());
         entity.setCode(model.getCode());
         entity.setValue(model.getValue());
+        entity.setBonusValue(model.getBonusValue());
         entity.setNew(isNew);
         return entity;
     }
