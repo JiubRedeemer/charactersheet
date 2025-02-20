@@ -13,7 +13,7 @@ import java.util.UUID;
 public interface AbilityRepository extends CrudRepository<Ability, UUID> {
     Optional<Ability> findByCharacterIdAndCode(UUID characterId, String code);
 
-    List<Ability> findByCharacterId(UUID characterId);
+    List<Ability> findByCharacterIdOrderById(UUID characterId);
 
     List<Ability> findByCharacterIdIn(Collection<UUID> characterIds);
 }

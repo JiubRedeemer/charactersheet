@@ -1,5 +1,6 @@
 package com.jiubredeemer.charactersheet.domain.health.controller;
 
+import com.jiubredeemer.charactersheet.domain.health.dto.UpdateCurrentHealthRequest;
 import com.jiubredeemer.charactersheet.domain.health.service.HealthService;
 import com.jiubredeemer.charactersheet.domain.util.dto.BonusValueUpdateRequest;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -19,11 +20,19 @@ public class HealthController {
     }
 
     @PatchMapping("/bonus")
-    public ResponseEntity<Void> updateBonusValueByCode(
+    public ResponseEntity<Void> updateBonusValueById(
             @Parameter(description = "Запрос на изменение бонусного значения здоровья персонажа", required = true)
             @RequestBody BonusValueUpdateRequest request,
             @PathVariable UUID characterId) {
         healthService.updateBonusValue(characterId, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/updateCurrent")
+    public ResponseEntity<Void> updateCurrentHpById(@Parameter(description = "Запрос на изменение значения здоровья персонажа", required = true)
+                                                    @RequestBody UpdateCurrentHealthRequest request,
+                                                    @PathVariable UUID characterId) {
+        healthService.updateCurrentHp(characterId, request);
         return ResponseEntity.ok().build();
     }
 }

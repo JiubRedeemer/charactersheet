@@ -31,7 +31,7 @@ public class AbilityService {
     }
 
     public List<AbilityDto> findAllByCharacterId(UUID characterId) {
-        return mapper.toDto(repository.findByCharacterId(characterId));
+        return mapper.toDto(repository.findByCharacterIdOrderById(characterId));
     }
 
     public List<AbilityDto> findAllByCharacterIds(Set<UUID> characterIds) {

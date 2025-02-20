@@ -1,9 +1,9 @@
 package com.jiubredeemer.charactersheet.domain.health.service;
 
-import com.jiubredeemer.charactersheet.dal.entity.Ability;
 import com.jiubredeemer.charactersheet.dal.entity.Health;
 import com.jiubredeemer.charactersheet.dal.repository.HealthRepository;
 import com.jiubredeemer.charactersheet.domain.health.dto.HealthDto;
+import com.jiubredeemer.charactersheet.domain.health.dto.UpdateCurrentHealthRequest;
 import com.jiubredeemer.charactersheet.domain.health.mapper.HealthDtoMapper;
 import com.jiubredeemer.charactersheet.domain.util.dto.BonusValueUpdateRequest;
 import com.jiubredeemer.charactersheet.exceptions.NotFoundException;
@@ -40,7 +40,33 @@ public class HealthService {
             health.setBonusValue(request.getBonusValue());
             repository.save(health);
         }, () -> {
-            throw new NotFoundException("Health not found by character id");
+            throw new NotFoundException("Health not found by character id for add bonus value");
+        });
+    }
+
+    public void updateCurrentHp(UUID characterId, UpdateCurrentHealthRequest request) {
+        final Optional<Health> healthFromDb = repository.findById(characterId);
+        healthFromDb.ifPresentOrElse(health -> {
+            switch (request.getType()) {
+                case HEAL -> {
+                    health.setCurrentHp(Math.min((health.getCurrentHp() + request.getValue()), health.getMaxHp() + health.getBonusValue()));
+                }
+                case DAMAGE -> {
+                    if (health.getTempHp() - request.getValue() >= 0L) {
+                        health.setTempHp(health.getTempHp() - request.getValue());
+                    } else if (health.getTempHp() - request.getValue() < 0L) {
+                        health.setCurrentHp(health.getCurrentHp() + health.getTempHp() - request.getValue());
+                        if(health.getCurrentHp() < 0) health.setCurrentHp(0L);
+                        health.setTempHp(0L);
+                    }
+                }
+                case TEMP -> {
+                    health.setTempHp(health.getTempHp() + request.getValue());
+                }
+            }
+            repository.save(health);
+        }, () -> {
+            throw new NotFoundException("Health not found by character id for update current hp");
         });
     }
 }
