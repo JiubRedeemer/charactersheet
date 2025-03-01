@@ -126,6 +126,14 @@ public class CharacterService {
                 .orElseThrow(() -> new IllegalStateException("Character was found, but was not built with id: " + id));
     }
 
+    public CharacterDto getPersonalityByCharacterId(UUID id) {
+        return Stream.of(characterDtoMapper.toDto(repository.findById(id)
+                        .orElseThrow(() -> new NotFoundException("Character not found by id " + id))))
+                .map(characterBuilder::enrichCharacterBio)
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("Character was found, but was not built with id: " + id));
+    }
+
     public void updateArmoryClassBonusValue(UUID id, BonusValueUpdateRequest request) {
         repository.findById(id).ifPresentOrElse(character -> {
             character.setBonusArmoryClass(request.getBonusValue().intValue());
