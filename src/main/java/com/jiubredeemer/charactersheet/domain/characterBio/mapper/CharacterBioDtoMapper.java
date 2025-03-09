@@ -20,6 +20,7 @@ public class CharacterBioDtoMapper {
         model.setPersonality(entity.getPersonality());
         model.setRelationships(entity.getRelationships());
         model.setWeaknesses(entity.getWeaknesses());
+        model.setAvatar(entity.getAvatar());
         return model;
     }
 
@@ -39,6 +40,7 @@ public class CharacterBioDtoMapper {
         entity.setPersonality(model.getPersonality());
         entity.setRelationships(model.getRelationships());
         entity.setWeaknesses(model.getWeaknesses());
+        entity.setAvatar(model.getAvatar());
         entity.setNew(isNew);
         return entity;
     }

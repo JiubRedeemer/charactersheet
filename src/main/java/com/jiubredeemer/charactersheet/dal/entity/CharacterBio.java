@@ -24,6 +24,7 @@ public class CharacterBio implements Persistable<UUID> {
     private String personality;
     private String relationships;
     private String weaknesses;
+    private String avatar;
 
     //-----META_FIELDS------
     @Transient

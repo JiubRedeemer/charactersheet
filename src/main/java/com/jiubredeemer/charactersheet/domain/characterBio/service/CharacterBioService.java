@@ -1,7 +1,6 @@
 package com.jiubredeemer.charactersheet.domain.characterBio.service;
 
 import com.jiubredeemer.charactersheet.dal.repository.CharacterBioRepository;
-import com.jiubredeemer.charactersheet.domain.character.dto.CharacterDto;
 import com.jiubredeemer.charactersheet.domain.character.dto.SectionEnum;
 import com.jiubredeemer.charactersheet.domain.characterBio.dto.CharacterBioDto;
 import com.jiubredeemer.charactersheet.domain.characterBio.dto.CharacterBioUpdateRequest;
@@ -50,6 +49,7 @@ public class CharacterBioService {
             case PERSONALITY -> characterBio.setPersonality(characterBioUpdateRequest.getValue());
             case RELATIONSHIPS -> characterBio.setRelationships(characterBioUpdateRequest.getValue());
             case WEAKNESSES -> characterBio.setWeaknesses(characterBioUpdateRequest.getValue());
+            case AVATAR -> characterBio.setAvatar(characterBioUpdateRequest.getValue());
             default -> log.error("Invalid section: {}", selectedSection);
         }
         repository.save(mapper.toEntity(characterBio, false));

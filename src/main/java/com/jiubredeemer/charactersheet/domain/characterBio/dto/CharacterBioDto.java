@@ -16,4 +16,5 @@ public class CharacterBioDto {
     private String personality;
     private String relationships;
     private String weaknesses;
+    private String avatar;
 }

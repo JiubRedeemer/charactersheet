@@ -10,7 +10,8 @@ public enum SectionEnum {
     HISTORY("history"),
     IDEALS("ideals"),
     PERSONALITY("personality"), RELATIONSHIPS("relationships"),
-    WEAKNESSES("weaknesses");
+    WEAKNESSES("weaknesses"),
+    AVATAR("avatar");
 
     final private String fieldName;
 
