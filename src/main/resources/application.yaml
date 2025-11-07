@@ -23,3 +23,12 @@ project-d:
       skills-url: /api/skills
       skills-by-code-url: /api/skills/byCode
       skills-by-class-url: /api/skills/byClass
+    itemstorage:
+      api-url: api
+      base-url: http://localhost:8083
+      inventory-url: inventory
+      equip-url: equip
+      count-url: count
+      money-url: money
+      items-url: items
+      search-url: search
