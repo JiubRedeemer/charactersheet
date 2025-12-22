@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController()
-@RequestMapping("/api/characters")
+@RequestMapping("/api/characters/{id}/bio")
 public class CharacterBioController {
     private final CharacterService characterService;
     private final CharacterBioService characterBioService;
@@ -21,14 +21,14 @@ public class CharacterBioController {
         this.characterBioService = characterBioService;
     }
 
-    @GetMapping("/{id}/bio")
+    @GetMapping("")
     public CharacterDto getBio(
             @Parameter(description = "Получить характеристики и навыки персонажа по ID", required = true)
             @PathVariable UUID id) {
         return characterService.getPersonalityByCharacterId(id);
     }
 
-    @PatchMapping("/{id}/bio/{section}")
+    @PatchMapping("/{section}")
     public CharacterDto updateBio(
             @Parameter(description = "Получить характеристики и навыки персонажа по ID", required = true)
             @PathVariable UUID id,
