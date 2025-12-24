@@ -6,6 +6,7 @@ import com.jiubredeemer.charactersheet.dal.repository.CharacterRepository;
 import com.jiubredeemer.charactersheet.domain.character.dto.CharacterDto;
 import com.jiubredeemer.charactersheet.domain.character.dto.CreateCharacterRequest;
 import com.jiubredeemer.charactersheet.domain.character.dto.FindCharacterByUserIdAndRoomIdRequest;
+import com.jiubredeemer.charactersheet.domain.character.dto.RestTypeEnum;
 import com.jiubredeemer.charactersheet.domain.character.mapper.CharacterDtoMapper;
 import com.jiubredeemer.charactersheet.domain.clazz.service.ClazzIntegrationService;
 import com.jiubredeemer.charactersheet.domain.race.service.RaceIntegrationService;
@@ -56,6 +57,7 @@ public class CharacterService {
             characterEntity.setInspiration(0);
             characterEntity.setInitiative(((int) dexValue - 10) / 2);
             characterEntity.setBonusInitiative(0);
+            characterEntity.setCurrentHpDiceCount(1);
             Character savedEntity = repository.save(characterEntity);
             //----------SAVED-----------
             CharacterDto characterDto = characterDtoMapper.toDto(savedEntity);
@@ -159,5 +161,11 @@ public class CharacterService {
         }, () -> {
             throw new NotFoundException("Character not found by id " + id);
         });
+    }
+
+    public void characterRest(UUID characterId, RestTypeEnum restType, Integer hpDiceCount) {
+        final CharacterDto characterDto = findById(characterId);
+        final ClazzDto clazzDto = ruleBookClient.getClassByCode(characterDto.getClazzCode(), characterDto.getRoomId());
+        characterCommonService.characterRest(characterId, restType, hpDiceCount, characterDto, clazzDto);
     }
 }

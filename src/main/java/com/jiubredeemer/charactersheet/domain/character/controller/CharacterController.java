@@ -1,8 +1,6 @@
 package com.jiubredeemer.charactersheet.domain.character.controller;
 
-import com.jiubredeemer.charactersheet.domain.character.dto.CharacterDto;
-import com.jiubredeemer.charactersheet.domain.character.dto.CreateCharacterRequest;
-import com.jiubredeemer.charactersheet.domain.character.dto.FindCharacterByUserIdAndRoomIdRequest;
+import com.jiubredeemer.charactersheet.domain.character.dto.*;
 import com.jiubredeemer.charactersheet.domain.character.service.CharacterService;
 import com.jiubredeemer.charactersheet.domain.util.dto.BonusValueUpdateRequest;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -87,6 +85,16 @@ public class CharacterController {
             @RequestBody BonusValueUpdateRequest request,
             @PathVariable UUID id) {
         characterService.updateInitiativeBonusValue(id, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/rest/{restType}")
+    public ResponseEntity<Void> characterRest(
+            @PathVariable UUID id,
+            @PathVariable RestTypeEnum restType,
+            @RequestBody RestRequest restRequest
+    ) {
+        characterService.characterRest(id, restType, restRequest.getHpDiceCount());
         return ResponseEntity.ok().build();
     }
 }

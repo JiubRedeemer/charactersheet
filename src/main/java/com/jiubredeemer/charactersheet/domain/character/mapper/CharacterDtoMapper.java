@@ -3,6 +3,7 @@ package com.jiubredeemer.charactersheet.domain.character.mapper;
 import com.jiubredeemer.charactersheet.dal.entity.Character;
 import com.jiubredeemer.charactersheet.domain.character.dto.CharacterDto;
 import com.jiubredeemer.charactersheet.domain.character.dto.CreateCharacterRequest;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +18,14 @@ public class CharacterDtoMapper {
         character.setName(createCharacterRequest.getName());
         character.setClazzCode(createCharacterRequest.getClazzCode());
         character.setRaceCode(createCharacterRequest.getRaceCode());
+        character.setCurrentHpDiceCount(createCharacterRequest.getCurrentHpDiceCount());
+        character.setNew(isNew);
+        return character;
+    }
+
+    public Character toEntity(CharacterDto characterDto, boolean isNew) {
+        final Character character = new Character();
+        BeanUtils.copyProperties(characterDto, character);
         character.setNew(isNew);
         return character;
     }
@@ -37,6 +46,7 @@ public class CharacterDtoMapper {
         characterDto.setInspiration(entity.getInspiration());
         characterDto.setInitiative(entity.getInitiative());
         characterDto.setBonusInitiative(entity.getBonusInitiative());
+        characterDto.setCurrentHpDiceCount(entity.getCurrentHpDiceCount());
         return characterDto;
     }
 

@@ -28,6 +28,7 @@ public class CharacterDto {
     private Integer inspiration;
     private Integer initiative;
     private Integer bonusInitiative;
+    private Integer currentHpDiceCount;
     private List<AbilityDto> abilities;
     private List<SkillDto> skills;
     private LevelDto level;

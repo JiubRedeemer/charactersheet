@@ -27,6 +27,7 @@ public class Character implements Persistable<UUID> {
     private Integer inspiration;
     private Integer initiative;
     private Integer bonusInitiative;
+    private Integer currentHpDiceCount;
 
 
     //-----META_FIELDS------

@@ -23,5 +23,6 @@ public class CreateCharacterRequest {
     private String personality;
     private String relationships;
     private String weaknesses;
+    private Integer currentHpDiceCount;
 }
 

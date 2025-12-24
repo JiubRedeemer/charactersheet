@@ -27,6 +27,11 @@ public class CharacterSkillsService {
         return mapper.toDto(repository.save(mapper.toEntity(characterSkillsDto, true)));
     }
 
+    public CharacterSkillsDto updateCharacterSkill(CharacterSkillsDto characterSkillsDto) {
+        CharacterSkills entity = mapper.toEntity(characterSkillsDto, false);
+        return mapper.toDto(repository.save(entity));
+    }
+
     public List<CharacterSkillsDto> findByCharacterId(UUID characterId) {
         return mapper.toDto(repository.findByCharacterId(characterId));
     }

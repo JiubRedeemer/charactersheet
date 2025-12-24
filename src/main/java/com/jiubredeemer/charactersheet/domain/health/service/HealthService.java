@@ -25,6 +25,10 @@ public class HealthService {
         return mapper.toDto(repository.save(mapper.toEntity(healthDto, true)));
     }
 
+    public HealthDto updateHealth(HealthDto healthDto) {
+        return mapper.toDto(repository.save(mapper.toEntity(healthDto, false)));
+    }
+
     public HealthDto findByCharacterId(UUID characterId) {
         return mapper.toDto(repository.findById(characterId).orElseThrow(() ->
                 new NotFoundException("HelthDto wasn't found by characterId: " + characterId)));

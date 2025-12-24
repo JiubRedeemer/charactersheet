@@ -6,10 +6,8 @@
         http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
 ">
-
-    <include file="001-PRO-18-initial.xml" relativeToChangelogFile="true"/>
-    <include file="002-PRO-18-avatar.xml" relativeToChangelogFile="true"/>
-    <include file="003-PRO-66-character_skills.xml" relativeToChangelogFile="true"/>
-    <include file="004-PRO-61-current_hp_dices.xml" relativeToChangelogFile="true"/>
+    <changeSet id="PRO-61:character-hp-dices:24.12.2025" author="jiubredeemer">
+        <sqlFile path="004-PRO-61-current_hp_dices.sql" relativeToChangelogFile="true" splitStatements="false"/>
+    </changeSet>
 
 </databaseChangeLog>
