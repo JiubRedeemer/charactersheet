@@ -128,22 +128,22 @@ public class CharacterCommonService {
             characterRepository.save(characterDtoMapper.toEntity(characterDto, false));
 
         } else if (RestTypeEnum.SHORT_REST.equals(restType)) {
-            final String hpDice = clazzDto.getStats().getHpDice();
-            Map<String, Long> abilityStatMap = characterDto.getAbilities().stream().collect(Collectors.toMap(AbilityDto::getCode, abilityDto -> {
-                long fullValue = abilityDto.getValue() + abilityDto.getBonusValue();
-                return (fullValue - 10) / 2;
-            }));
-            abilityStatMap.putAll(DiceUtils.getRandomDiceMap());
-
-            Long totalHpUp = 0L;
-            final int totalHpDiceCount = hpDiceCount < characterDto.getCurrentHpDiceCount() ? hpDiceCount : characterDto.getCurrentHpDiceCount();
-            for (int i = 0; i < totalHpDiceCount; i++) {
-                totalHpUp += FormulaCalculator.calculate(hpDice, abilityStatMap);
-            }
-
-            final HealthDto healthDto = healthService.findByCharacterId(characterId);
-            healthDto.setCurrentHp((healthDto.getCurrentHp() + totalHpUp) >= healthDto.getMaxHp() ? healthDto.getMaxHp() : healthDto.getCurrentHp() + totalHpUp);
-            healthService.updateHealth(healthDto);
+//            final String hpDice = clazzDto.getStats().getHpDice();
+//            Map<String, Long> abilityStatMap = characterDto.getAbilities().stream().collect(Collectors.toMap(AbilityDto::getCode, abilityDto -> {
+//                long fullValue = abilityDto.getValue() + abilityDto.getBonusValue();
+//                return (fullValue - 10) / 2;
+//            }));
+//            abilityStatMap.putAll(DiceUtils.getRandomDiceMap());
+//
+//            Long totalHpUp = 0L;
+//            final int totalHpDiceCount = hpDiceCount < characterDto.getCurrentHpDiceCount() ? hpDiceCount : characterDto.getCurrentHpDiceCount();
+//            for (int i = 0; i < totalHpDiceCount; i++) {
+//                totalHpUp += FormulaCalculator.calculate(hpDice, abilityStatMap);
+//            }
+//
+//            final HealthDto healthDto = healthService.findByCharacterId(characterId);
+//            healthDto.setCurrentHp((healthDto.getCurrentHp() + totalHpUp) >= healthDto.getMaxHp() ? healthDto.getMaxHp() : healthDto.getCurrentHp() + totalHpUp);
+//            healthService.updateHealth(healthDto);
 
             final List<CharacterSkillsDto> characterSkills = characterSkillsService.findByCharacterId(characterId);
             characterSkills.forEach(skillDto -> {
