@@ -9,4 +9,6 @@ public class SkillDto {
     private UUID id;
     private UUID characterId;
     private String code;
+    private Integer masteryValue;
+    private Long bonusValue;
 }

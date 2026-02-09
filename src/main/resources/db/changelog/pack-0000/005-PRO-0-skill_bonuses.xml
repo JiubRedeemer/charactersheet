@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+">
+    <changeSet id="PRO-0:skill_bonuses:09.02.2026" author="jiubredeemer">
+        <sql>ALTER TABLE charactersheet.skill ADD COLUMN "mastery_value" int4 NULL;</sql>
+        <sql>COMMENT ON COLUMN charactersheet.skill.mastery_value IS 'Кол-во применений бонуса мастерства';</sql>
+        <sql>ALTER TABLE charactersheet.skill ADD COLUMN "bonus_value" int8 NULL;</sql>
+        <sql>COMMENT ON COLUMN charactersheet.skill.bonus_value IS 'Кастомное доп значение характеристики';</sql>
+    </changeSet>
+
+</databaseChangeLog>

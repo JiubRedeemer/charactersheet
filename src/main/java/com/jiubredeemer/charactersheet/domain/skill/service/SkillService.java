@@ -32,16 +32,28 @@ public class SkillService {
 
     public void updateMastery(UUID characterId, String code, UpdateMasteryRequest request) {
         repository.findByCharacterIdAndCode(characterId, code).ifPresentOrElse(skill -> {
-            if (!request.getIsMastery()) {
+            if (!request.getIsMastery() &&
+                    request.getMasteryValue() == null &&
+                    request.getBonusValue() == null) {
                 repository.delete(skill);
+            } else {
+                skill.setCharacterId(characterId);
+                skill.setCode(code);
+                skill.setMasteryValue(request.getMasteryValue());
+                skill.setBonusValue(request.getBonusValue());
+                repository.save(skill);
             }
         }, () -> {
-            if (request.getIsMastery()) {
+            if (request.getIsMastery() ||
+                    request.getMasteryValue() != null ||
+                    request.getBonusValue() != null) {
                 final Skill skill = new Skill();
                 skill.setNew(true);
                 skill.setId(UUID.randomUUID());
                 skill.setCharacterId(characterId);
                 skill.setCode(code);
+                skill.setMasteryValue(request.getMasteryValue());
+                skill.setBonusValue(request.getBonusValue());
                 repository.save(skill);
             }
         });

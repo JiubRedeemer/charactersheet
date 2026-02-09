@@ -105,7 +105,7 @@ public class CharacterCommonService {
         if (RestTypeEnum.LONG_REST.equals(restType)) {
 
             final HealthDto healthDto = healthService.findByCharacterId(characterId);
-            healthDto.setCurrentHp(healthDto.getMaxHp());
+            healthDto.setCurrentHp(healthDto.getMaxHp() + healthDto.getBonusValue());
             healthService.updateHealth(healthDto);
 
             final List<CharacterSkillsDto> characterSkills = characterSkillsService.findByCharacterId(characterId);

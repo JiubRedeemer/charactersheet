@@ -47,7 +47,7 @@ public class CharacterService {
         final Character characterEntity = characterDtoMapper.toEntity(createCharacterRequest, true);
         characterEntity.setId(UUID.randomUUID());
 
-        if (ruleType.equals(RuleTypeEnum.DND5E)) {
+        if (ruleType.equals(RuleTypeEnum.DND5E) || ruleType.equals(RuleTypeEnum.DND2024)) {
             characterEntity.setProficiencyBonus(LevelInfoEnum.LVL_1.getProficiencyBonus());
             final long dexValue = abilityUtils.getAbilityValueByCode(createCharacterRequest.getAbilities(), "DEX");
             characterEntity.setArmoryClass(10 + (((int) dexValue - 10) / 2));

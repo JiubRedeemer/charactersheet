@@ -9,6 +9,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/charactersheet
     username: pd
     driver-class-name: org.postgresql.Driver
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
   jpa:
     open-in-view: false
 project-d:
@@ -32,3 +35,5 @@ project-d:
       money-url: money
       items-url: items
       search-url: search
+liquibase:
+  shouldRun: true
