@@ -29,7 +29,7 @@ public class HpCalculator {
 
         while (matcher.find()) {
             String characteristicCode = matcher.group();
-            Long value = abilityService.getValueByCode(characterId ,characteristicCode);
+            Long value = (abilityService.getValueByCode(characterId ,characteristicCode) - 10) / 2;
             matcher.appendReplacement(sb, String.valueOf(value));
         }
         matcher.appendTail(sb);
