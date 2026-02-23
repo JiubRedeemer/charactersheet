@@ -19,8 +19,9 @@ public class SkillController {
 
     @PatchMapping("{code}/updateMastery")
     public ResponseEntity<Void> updateMasteryByCode(
-            @Parameter(description = "Запрос на изменение бонусного значения здоровья персонажа", required = true)
+            @Parameter(description = "Запрос на изменение бонусного значения навыка персонажа", required = true)
             @RequestBody UpdateMasteryRequest request,
+            @Parameter(description = "Код навыка, или SAVING_THROW_ABILITYCODE или CHECK_ABILITYCODE")
             @PathVariable String code,
             @PathVariable UUID characterId) {
         skillService.updateMastery(characterId, code, request);
