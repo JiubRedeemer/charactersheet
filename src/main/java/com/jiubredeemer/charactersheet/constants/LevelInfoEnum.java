@@ -23,11 +23,21 @@ public enum LevelInfoEnum {
     LVL_17(17L, 225000L, 6),
     LVL_18(18L, 265000L, 6),
     LVL_19(19L, 305000L, 6),
-    LVL_20(20L, 355000L, 6);
+    LVL_20(20L, 355000L, 6),
+    LVL_21(21L, 355000L, 6); //Затычка
 
     private final Long level;
     private final Long xp;
     private final Integer proficiencyBonus;
+
+    public static LevelInfoEnum getByLevel(Long level) {
+        for (LevelInfoEnum levelInfoEnum : LevelInfoEnum.values()) {
+            if (levelInfoEnum.getLevel().equals(level)) {
+                return levelInfoEnum;
+            }
+        }
+        return null;
+    }
 
     LevelInfoEnum(Long level, Long xp, Integer proficiencyBonus) {
         this.level = level;
