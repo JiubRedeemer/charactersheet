@@ -52,9 +52,7 @@ public class HealthService {
         final Optional<Health> healthFromDb = repository.findById(characterId);
         healthFromDb.ifPresentOrElse(health -> {
             switch (request.getType()) {
-                case HEAL -> {
-                    health.setCurrentHp(Math.min((health.getCurrentHp() + request.getValue()), health.getMaxHp() + health.getBonusValue()));
-                }
+                case HEAL -> health.setCurrentHp(Math.min((health.getCurrentHp() + request.getValue()), health.getMaxHp() + health.getBonusValue()));
                 case DAMAGE -> {
                     if (health.getTempHp() - request.getValue() >= 0L) {
                         health.setTempHp(health.getTempHp() - request.getValue());
@@ -64,13 +62,21 @@ public class HealthService {
                         health.setTempHp(0L);
                     }
                 }
-                case TEMP -> {
-                    health.setTempHp(health.getTempHp() + request.getValue());
-                }
+                case TEMP -> health.setTempHp(health.getTempHp() + request.getValue());
             }
             repository.save(health);
         }, () -> {
             throw new NotFoundException("Health not found by character id for update current hp");
+        });
+    }
+
+    public void updateMaxHp(UUID characterId, BonusValueUpdateRequest request) {
+        final Optional<Health> healthFromDb = repository.findById(characterId);
+        healthFromDb.ifPresentOrElse(health -> {
+            health.setMaxHp(request.getBonusValue());
+            repository.save(health);
+        }, () -> {
+            throw new NotFoundException("Health not found by character id for change max value");
         });
     }
 }

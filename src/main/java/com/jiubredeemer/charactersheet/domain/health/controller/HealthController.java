@@ -35,4 +35,12 @@ public class HealthController {
         healthService.updateCurrentHp(characterId, request);
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping("/max")
+    public ResponseEntity<Void> updateCurrentHpById(@Parameter(description = "Запрос на изменение максмального значения здоровья персонажа", required = true)
+                                                    @RequestBody BonusValueUpdateRequest request,
+                                                    @PathVariable UUID characterId) {
+        healthService.updateMaxHp(characterId, request);
+        return ResponseEntity.ok().build();
+    }
 }
