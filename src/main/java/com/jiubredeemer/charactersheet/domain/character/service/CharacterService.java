@@ -78,7 +78,7 @@ public class CharacterService {
             characters = repository.findByRoomIdAndUserId(request.getRoomId(), request.getUserId());
         }
         return Stream.of(characterDtoMapper
-                        .toDto(repository.findByRoomIdAndUserId(request.getRoomId(), request.getUserId())))
+                        .toDto(characters))
                 .map(characterBuilder::enrichLevel)
                 .map(characterBuilder::enrichHealth)
                 .findAny()
