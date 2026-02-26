@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface CharacterRepository extends CrudRepository<Character, UUID> {
 
     List<Character> findByRoomIdAndUserId(UUID roomId, UUID userId);
+
+    List<Character> findByRoomId(UUID roomId);
 }

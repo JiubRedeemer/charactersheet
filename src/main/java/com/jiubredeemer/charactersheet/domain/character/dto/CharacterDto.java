@@ -34,5 +34,6 @@ public class CharacterDto {
     private LevelDto level;
     private HealthDto health;
     private CharacterBioDto characterBio;
+    private Boolean isOwner;
 
 }

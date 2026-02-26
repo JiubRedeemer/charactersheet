@@ -3,10 +3,7 @@ package com.jiubredeemer.charactersheet.domain.character.service;
 import com.jiubredeemer.charactersheet.constants.LevelInfoEnum;
 import com.jiubredeemer.charactersheet.dal.entity.Character;
 import com.jiubredeemer.charactersheet.dal.repository.CharacterRepository;
-import com.jiubredeemer.charactersheet.domain.character.dto.CharacterDto;
-import com.jiubredeemer.charactersheet.domain.character.dto.CreateCharacterRequest;
-import com.jiubredeemer.charactersheet.domain.character.dto.FindCharacterByUserIdAndRoomIdRequest;
-import com.jiubredeemer.charactersheet.domain.character.dto.RestTypeEnum;
+import com.jiubredeemer.charactersheet.domain.character.dto.*;
 import com.jiubredeemer.charactersheet.domain.character.mapper.CharacterDtoMapper;
 import com.jiubredeemer.charactersheet.domain.clazz.service.ClazzIntegrationService;
 import com.jiubredeemer.charactersheet.domain.race.service.RaceIntegrationService;
@@ -74,6 +71,12 @@ public class CharacterService {
 
 
     public List<CharacterDto> findAllByRoomIdAndUserId(FindCharacterByUserIdAndRoomIdRequest request) {
+        final List<Character> characters;
+        if (request.getRoles() != null && (request.getRoles().contains(RoomUserRole.MASTER) || request.getRoles().contains(RoomUserRole.MODERATOR))) {
+            characters = repository.findByRoomId(request.getRoomId());
+        } else {
+            characters = repository.findByRoomIdAndUserId(request.getRoomId(), request.getUserId());
+        }
         return Stream.of(characterDtoMapper
                         .toDto(repository.findByRoomIdAndUserId(request.getRoomId(), request.getUserId())))
                 .map(characterBuilder::enrichLevel)
@@ -83,6 +86,7 @@ public class CharacterService {
                         new IllegalStateException("Characters was found, but was not built with roomId: %s and userId: %s"
                                 .formatted(request.getRoomId(), request.getUserId())))
                 .stream()
+                .peek(characterDto -> characterDto.setIsOwner(request.getUserId().equals(characterDto.getUserId())))
                 .map(characterBuilder::enrichRaceInfo) //FIXME сделать нормально
                 .map(characterBuilder::enrichClassInfo).toList();
     }
