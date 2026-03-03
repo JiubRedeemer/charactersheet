@@ -12,6 +12,7 @@ public class CreateCharacterRequest {
     private String name;
     private String clazzCode;
     private String raceCode;
+    private String backgroundCode;
     private List<AbilityShort> abilities;
     private List<SkillShort> skills;
     private long age;
