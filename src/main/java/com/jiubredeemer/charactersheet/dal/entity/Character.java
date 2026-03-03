@@ -19,6 +19,7 @@ public class Character implements Persistable<UUID> {
     private String name;
     private String clazzCode;
     private String raceCode;
+    private String backgroundCode;
     private Integer proficiencyBonus;
     private Integer armoryClass;
     private Integer bonusArmoryClass;

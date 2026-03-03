@@ -20,6 +20,7 @@ public class CharacterDto {
     private ClassInfoDto clazzInfo;
     private String raceCode;
     private RaceInfoDto raceInfo;
+    private String backgroundCode;
     private Integer proficiencyBonus;
     private Integer armoryClass;
     private Integer bonusArmoryClass;

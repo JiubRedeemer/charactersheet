@@ -19,6 +19,7 @@ public class CharacterDtoMapper {
         character.setClazzCode(createCharacterRequest.getClazzCode());
         character.setRaceCode(createCharacterRequest.getRaceCode());
         character.setCurrentHpDiceCount(createCharacterRequest.getCurrentHpDiceCount());
+        character.setBackgroundCode(createCharacterRequest.getBackgroundCode());
         character.setNew(isNew);
         return character;
     }
@@ -38,6 +39,7 @@ public class CharacterDtoMapper {
         characterDto.setName(entity.getName());
         characterDto.setClazzCode(entity.getClazzCode());
         characterDto.setRaceCode(entity.getRaceCode());
+        characterDto.setBackgroundCode(entity.getBackgroundCode());
         characterDto.setProficiencyBonus(entity.getProficiencyBonus());
         characterDto.setArmoryClass(entity.getArmoryClass());
         characterDto.setBonusArmoryClass(entity.getBonusArmoryClass());

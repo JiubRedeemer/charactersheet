@@ -9,4 +9,5 @@ public class RoomDto {
     private UUID roomId;
     private UUID ownerId;
     private RuleTypeEnum ruleType;
+    private RuleTypeEnum baseRuleType;
 }
