@@ -11,6 +11,7 @@ public class RoomDtoMapper {
         roomDto.setRoomId(room.getRoomId());
         roomDto.setOwnerId(room.getOwnerId());
         roomDto.setRuleType(room.getRuleType());
+        roomDto.setDeletedAt(room.getDeletedAt());
         return roomDto;
     }
 
@@ -19,6 +20,7 @@ public class RoomDtoMapper {
         room.setRoomId(roomDto.getRoomId());
         room.setOwnerId(roomDto.getOwnerId());
         room.setRuleType(roomDto.getRuleType());
+        room.setDeletedAt(roomDto.getDeletedAt());
         room.setNew(isNew);
         return room;
     }

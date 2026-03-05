@@ -39,4 +39,10 @@ public class RoomController {
                            @PathVariable("roomId") UUID roomId) {
         roomService.deleteRoom(roomId);
     }
+
+    @DeleteMapping("{roomId}/logical")
+    public void deleteRoomLogical(@Parameter(description = "ID комнаты для удаления", required = true)
+                                  @PathVariable("roomId") UUID roomId) {
+        roomService.deleteRoomLogical(roomId);
+    }
 }
