@@ -1,0 +1,1 @@
+ALTER TABLE charactersheet.room ADD COLUMN deleted_at timestamp NULL;
