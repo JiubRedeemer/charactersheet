@@ -95,6 +95,7 @@ public class CharacterService {
         return Stream.of(characterDtoMapper.toDto(repository.findById(id)
                         .orElseThrow(() -> new NotFoundException("Character not found by id " + id))))
                 .map(characterBuilder::enrichAbilities)
+                .map(characterBuilder::enrichTraits)
                 .map(characterBuilder::enrichSkills)
                 .map(characterBuilder::enrichLevel)
                 .map(characterBuilder::enrichHealth)

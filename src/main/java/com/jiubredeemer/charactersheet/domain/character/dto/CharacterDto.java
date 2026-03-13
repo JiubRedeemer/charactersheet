@@ -2,6 +2,7 @@ package com.jiubredeemer.charactersheet.domain.character.dto;
 
 import com.jiubredeemer.charactersheet.domain.ability.dto.AbilityDto;
 import com.jiubredeemer.charactersheet.domain.characterBio.dto.CharacterBioDto;
+import com.jiubredeemer.charactersheet.domain.characterTraits.dto.CharacterTraitsDto;
 import com.jiubredeemer.charactersheet.domain.health.dto.HealthDto;
 import com.jiubredeemer.charactersheet.domain.level.dto.LevelDto;
 import com.jiubredeemer.charactersheet.domain.skill.dto.SkillDto;
@@ -35,6 +36,7 @@ public class CharacterDto {
     private LevelDto level;
     private HealthDto health;
     private CharacterBioDto characterBio;
+    private List<CharacterTraitsDto> traits;
     private Boolean isOwner;
 
 }

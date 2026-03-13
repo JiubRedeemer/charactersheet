@@ -8,6 +8,7 @@ import com.jiubredeemer.charactersheet.domain.character.dto.ClassInfoDto;
 import com.jiubredeemer.charactersheet.domain.character.dto.RaceInfoDto;
 import com.jiubredeemer.charactersheet.domain.characterBio.dto.CharacterBioDto;
 import com.jiubredeemer.charactersheet.domain.characterBio.service.CharacterBioService;
+import com.jiubredeemer.charactersheet.domain.characterTraits.service.CharacterTraitsService;
 import com.jiubredeemer.charactersheet.domain.clazz.service.ClazzIntegrationService;
 import com.jiubredeemer.charactersheet.domain.health.dto.HealthDto;
 import com.jiubredeemer.charactersheet.domain.health.service.HealthService;
@@ -39,9 +40,15 @@ public class CharacterBuilder {
     private final CharacterBioService characterBioService;
     private final ClazzIntegrationService clazzIntegrationService;
     private final RaceIntegrationService raceIntegrationService;
+    private final CharacterTraitsService characterTraitsService;
 
     public CharacterDto enrichAbilities(CharacterDto character) {
         character.setAbilities(abilityService.findAllByCharacterId(character.getId()));
+        return character;
+    }
+
+    public CharacterDto enrichTraits(CharacterDto character) {
+        character.setTraits(characterTraitsService.findByCharacterId(character.getId()));
         return character;
     }
 
@@ -134,6 +141,7 @@ public class CharacterBuilder {
         final RaceInfoDto raceInfoDto = new RaceInfoDto();
         raceInfoDto.setCode(raceByCode.getCode());
         raceInfoDto.setName(raceByCode.getName());
+        raceInfoDto.setTraits(raceByCode.getStats().getTraits());
         character.setRaceInfo(raceInfoDto);
         return character;
     }

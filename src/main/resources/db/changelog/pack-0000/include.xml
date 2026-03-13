@@ -14,5 +14,6 @@
     <include file="005-PRO-0-skill_bonuses.xml" relativeToChangelogFile="true"/>
     <include file="006-PRO-0-background.sql" relativeToChangelogFile="true"/>
     <include file="007-PRO-31_delete_room.sql" relativeToChangelogFile="true"/>
+    <include file="008-PRO-100_passives.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
