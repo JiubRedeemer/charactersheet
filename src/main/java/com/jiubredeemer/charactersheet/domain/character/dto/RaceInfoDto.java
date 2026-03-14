@@ -9,5 +9,7 @@ import java.util.List;
 public class RaceInfoDto {
     private String code;
     private String name;
+    private String speciesCode;
+    private String imgUrl;
     private List<RaceTraitDto> traits;
 }

@@ -11,5 +11,7 @@ public class RaceDto {
     private String name;
     private String description;
     private String code;
+    private String speciesCode;
+    private String imgUrl;
     private RaceStatsDto stats;
 }
