@@ -142,6 +142,8 @@ public class CharacterBuilder {
         raceInfoDto.setCode(raceByCode.getCode());
         raceInfoDto.setName(raceByCode.getName());
         raceInfoDto.setTraits(raceByCode.getStats().getTraits());
+        raceInfoDto.setImgUrl(raceByCode.getImgUrl());
+        raceInfoDto.setSpeciesCode(raceByCode.getSpeciesCode());
         character.setRaceInfo(raceInfoDto);
         return character;
     }
