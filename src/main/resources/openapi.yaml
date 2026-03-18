@@ -1,0 +1,356 @@
+openapi: 3.0.3
+info:
+  title: CharacterSheet NPC API
+  version: "1.0.0"
+  description: |
+    OpenAPI specification for NPC and character-NPC relation endpoints.
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /api/npcs:
+    put:
+      summary: Create or update NPC
+      operationId: saveNpc
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveNpcRequest'
+      responses:
+        '200':
+          description: NPC saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NpcDto'
+
+  /api/npcs/{id}:
+    get:
+      summary: Get NPC by id
+      operationId: getNpcById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: NPC found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NpcDto'
+        '404':
+          description: NPC not found
+    delete:
+      summary: Delete NPC by id
+      operationId: deleteNpcById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: NPC deleted
+
+  /api/npcs/room/{roomId}:
+    get:
+      summary: Get NPCs by room id
+      operationId: getNpcsByRoomId
+      parameters:
+        - name: roomId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of NPCs in room
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NpcDto'
+
+  /api/character-npc-relations:
+    put:
+      summary: Create or update character-NPC relation
+      operationId: saveCharacterNpcRelation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveCharacterNpcRelationRequest'
+      responses:
+        '200':
+          description: Relation saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CharacterNpcRelationDto'
+
+  /api/character-npc-relations/{id}:
+    delete:
+      summary: Delete character-NPC relation by id
+      operationId: deleteCharacterNpcRelationById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Relation deleted
+
+  /api/character-npc-relations/character/{characterId}:
+    get:
+      summary: Get all NPCs related to character
+      operationId: getNpcsByCharacterId
+      parameters:
+        - name: characterId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of related NPCs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NpcDto'
+
+  /api/character-npc-relations/character/{characterId}/relationType/{relationType}:
+    get:
+      summary: Get NPCs related to character by relation type
+      operationId: getNpcsByCharacterIdAndRelationType
+      parameters:
+        - name: characterId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: relationType
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/RelationTypeEnum'
+      responses:
+        '200':
+          description: List of related NPCs of given type
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NpcDto'
+
+components:
+  schemas:
+    NpcTypeEnum:
+      type: string
+      description: |
+        NPC type (english codes):
+          - Разумное -> RATIONAL
+          - Животное -> BEAST
+          - Монстр   -> MONSTER
+          - Божество -> DEITY
+          - Нежить   -> UNDEAD
+      enum:
+        - RATIONAL
+        - BEAST
+        - MONSTER
+        - DEITY
+        - UNDEAD
+
+    RelationTypeEnum:
+      type: string
+      description: |
+        Relation type (english codes):
+          - Друг      -> FRIEND
+          - Враг      -> ENEMY
+          - Правитель -> RULER
+          - Питомец   -> PET
+          - Другое    -> OTHER
+      enum:
+        - FRIEND
+        - ENEMY
+        - RULER
+        - PET
+        - OTHER
+
+    ClassInfoDto:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+
+    RaceTraitDto:
+      type: object
+      description: Race trait (structure matches integration DTO, simplified here)
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+
+    RaceInfoDto:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        speciesCode:
+          type: string
+        imgUrl:
+          type: string
+        traits:
+          type: array
+          items:
+            $ref: '#/components/schemas/RaceTraitDto'
+
+    NpcDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        roomId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/NpcTypeEnum'
+        clazzCode:
+          type: string
+          nullable: true
+        clazzInfo:
+          $ref: '#/components/schemas/ClassInfoDto'
+        raceCode:
+          type: string
+          nullable: true
+        raceInfo:
+          $ref: '#/components/schemas/RaceInfoDto'
+        armoryClass:
+          type: string
+          nullable: true
+        speed:
+          type: string
+          nullable: true
+        initiative:
+          type: integer
+          format: int32
+          nullable: true
+        imgUrl:
+          type: string
+          nullable: true
+        createdBy:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+
+    SaveNpcRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          nullable: true
+        roomId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        type:
+          $ref: '#/components/schemas/NpcTypeEnum'
+        clazzCode:
+          type: string
+          nullable: true
+        raceCode:
+          type: string
+          nullable: true
+        armoryClass:
+          type: string
+          nullable: true
+        speed:
+          type: string
+          nullable: true
+        initiative:
+          type: integer
+          format: int32
+          nullable: true
+        imgUrl:
+          type: string
+          nullable: true
+        createdBy:
+          type: string
+          format: uuid
+
+    CharacterNpcRelationDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        characterId:
+          type: string
+          format: uuid
+        npcId:
+          type: string
+          format: uuid
+        note:
+          type: string
+          nullable: true
+        relationType:
+          $ref: '#/components/schemas/RelationTypeEnum'
+
+    SaveCharacterNpcRelationRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          nullable: true
+        characterId:
+          type: string
+          format: uuid
+        npcId:
+          type: string
+          format: uuid
+        note:
+          type: string
+          nullable: true
+        relationType:
+          $ref: '#/components/schemas/RelationTypeEnum'
+
