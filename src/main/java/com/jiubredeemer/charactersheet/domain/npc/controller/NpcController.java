@@ -39,9 +39,16 @@ public class NpcController {
     @GetMapping("/room/{roomId}")
     public List<NpcDto> findByRoomId(
             @Parameter(description = "Найти NPC по ID комнаты", required = true)
-            @PathVariable UUID roomId
+            @PathVariable UUID roomId,
+            @RequestParam(required = false) UUID userId,
+            @RequestParam(required = false) String characterId,
+            @RequestParam(required = false) Boolean forceAll
     ) {
-        return npcService.findByRoomId(roomId);
+        if (characterId == null || characterId.isEmpty() || characterId.equals("null") || characterId.equals("undefined")) {
+            return npcService.findByRoomId(roomId, userId, null, forceAll);
+        } else {
+            return npcService.findByRoomId(roomId, userId, UUID.fromString(characterId), forceAll);
+        }
     }
 
     @DeleteMapping("/{id}")

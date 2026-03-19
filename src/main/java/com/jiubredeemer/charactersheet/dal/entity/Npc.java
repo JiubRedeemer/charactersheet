@@ -20,6 +20,8 @@ public class Npc implements Persistable<UUID> {
     private String name;
     private String description;
     private String type;
+    private Boolean visible;
+    private Boolean unique;
     private String clazzCode;
     private String raceCode;
     private String armoryClass;
