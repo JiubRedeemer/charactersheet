@@ -10,6 +10,8 @@ public class SaveNpcRequest {
     private UUID roomId;
     private String name;
     private String description;
+    private Boolean visible;
+    private Boolean unique;
     private NpcTypeEnum type;
     private String clazzCode;
     private String raceCode;

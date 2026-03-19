@@ -53,12 +53,14 @@ public class CharacterNpcRelationService {
     public List<NpcDto> getByRelationType(UUID characterId, RelationTypeEnum relationType) {
         List<CharacterNpcRelation> relations = relationRepository
                 .findByCharacterIdAndRelationType(characterId, relationType.name());
-        List<Npc> npcs = relations.stream()
-                .map(CharacterNpcRelation::getNpcId)
-                .map(npcId -> npcRepository.findById(npcId)
-                        .orElseThrow(() -> new NotFoundException("Npc not found by id " + npcId)))
+        return relations.stream()
+                .map(relation -> {
+                    NpcDto npc = npcDtoMapper.toDto(npcRepository.findById(relation.getNpcId())
+                            .orElseThrow(() -> new NotFoundException("Npc not found by id " + relation.getNpcId())));
+                    npc.setRelationId(relation.getId());
+                    return npc;
+                })
                 .toList();
-        return npcDtoMapper.toDto(npcs);
     }
 
     private CharacterNpcRelationDto toDto(CharacterNpcRelation relation) {

@@ -16,6 +16,8 @@ public class NpcDtoMapper {
         dto.setRoomId(entity.getRoomId());
         dto.setName(entity.getName());
         dto.setDescription(entity.getDescription());
+        dto.setUnique(entity.getUnique());
+        dto.setVisible(entity.getVisible());
         dto.setType(entity.getType() != null ? NpcTypeEnum.valueOf(entity.getType()) : null);
         dto.setClazzCode(entity.getClazzCode());
         dto.setRaceCode(entity.getRaceCode());

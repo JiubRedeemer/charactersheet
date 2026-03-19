@@ -49,14 +49,29 @@ public class NpcService {
         npc.setImgUrl(request.getImgUrl());
         npc.setCreatedBy(request.getCreatedBy());
         npc.setCreatedAt(LocalDateTime.now());
+
+        if (request.getUnique() == null) {
+            request.setUnique(false);
+        }
+        if (request.getVisible() == null) {
+            request.setVisible(true);
+        }
+        npc.setUnique(request.getUnique());
+        npc.setVisible(request.getVisible());
+
         Npc saved = npcRepository.save(npc);
         NpcDto dto = npcDtoMapper.toDto(saved);
         enrichRaceAndClass(dto);
         return dto;
     }
 
-    public List<NpcDto> findByRoomId(UUID roomId) {
-        List<NpcDto> dtos = npcDtoMapper.toDto(npcRepository.findByRoomId(roomId));
+    public List<NpcDto> findByRoomId(UUID roomId, UUID userId, UUID characterId, Boolean forceAll) {
+        List<NpcDto> dtos;
+        if (forceAll == true) {
+            dtos = npcDtoMapper.toDto(npcRepository.findByRoomId(roomId));
+        } else {
+            dtos = npcDtoMapper.toDto(npcRepository.findByRoomIdVisibleForUser(roomId, userId, characterId));
+        }
         dtos.forEach(this::enrichRaceAndClass);
         return dtos;
     }

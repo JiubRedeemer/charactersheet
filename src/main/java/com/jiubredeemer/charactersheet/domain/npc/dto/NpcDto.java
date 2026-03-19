@@ -11,8 +11,11 @@ import java.util.UUID;
 public class NpcDto {
     private UUID id;
     private UUID roomId;
+    private UUID relationId;
     private String name;
     private String description;
+    private Boolean visible;
+    private Boolean unique;
     private NpcTypeEnum type;
     private String clazzCode;
     private ClassInfoDto clazzInfo;
