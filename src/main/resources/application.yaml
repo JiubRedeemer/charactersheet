@@ -22,6 +22,7 @@ project-d:
       room-rules-url: /api/rooms/{0}/rules
       races-url: /api/races
       classes-url: /api/classes
+      backgrounds-url: /api/backgrounds
       abilities-url: /api/abilities
       skills-url: /api/skills
       skills-by-code-url: /api/skills/byCode

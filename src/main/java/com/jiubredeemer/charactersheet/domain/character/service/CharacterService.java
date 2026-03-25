@@ -102,6 +102,7 @@ public class CharacterService {
                 .map(characterBuilder::enrichCharacterBio)
                 .map(characterBuilder::enrichRaceInfo)
                 .map(characterBuilder::enrichClassInfo)
+                .map(characterBuilder::enrichBackgroundInfo)
                 .findAny()
                 .orElseThrow(() -> new IllegalStateException("Character was found, but was not built with id: " + id));
     }

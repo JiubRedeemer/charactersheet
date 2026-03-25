@@ -3,6 +3,7 @@ package com.jiubredeemer.charactersheet.domain.character.service;
 import com.jiubredeemer.charactersheet.constants.LevelInfoEnum;
 import com.jiubredeemer.charactersheet.domain.ability.dto.AbilityDto;
 import com.jiubredeemer.charactersheet.domain.ability.service.AbilityService;
+import com.jiubredeemer.charactersheet.domain.background.service.BackgroundIntegrationService;
 import com.jiubredeemer.charactersheet.domain.character.dto.CharacterDto;
 import com.jiubredeemer.charactersheet.domain.character.dto.ClassInfoDto;
 import com.jiubredeemer.charactersheet.domain.character.dto.RaceInfoDto;
@@ -17,6 +18,7 @@ import com.jiubredeemer.charactersheet.domain.level.service.LevelService;
 import com.jiubredeemer.charactersheet.domain.race.service.RaceIntegrationService;
 import com.jiubredeemer.charactersheet.domain.skill.dto.SkillDto;
 import com.jiubredeemer.charactersheet.domain.skill.service.SkillService;
+import com.jiubredeemer.charactersheet.integration.dto.background.BackgroundDto;
 import com.jiubredeemer.charactersheet.integration.dto.clazz.ClazzDto;
 import com.jiubredeemer.charactersheet.integration.dto.race.RaceDto;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +43,7 @@ public class CharacterBuilder {
     private final ClazzIntegrationService clazzIntegrationService;
     private final RaceIntegrationService raceIntegrationService;
     private final CharacterTraitsService characterTraitsService;
+    private final BackgroundIntegrationService backgroundIntegrationService;
 
     public CharacterDto enrichAbilities(CharacterDto character) {
         character.setAbilities(abilityService.findAllByCharacterId(character.getId()));
@@ -133,6 +136,12 @@ public class CharacterBuilder {
         classInfoDto.setCode(classByCode.getCode());
         classInfoDto.setName(classByCode.getName());
         character.setClazzInfo(classInfoDto);
+        return character;
+    }
+
+    public CharacterDto enrichBackgroundInfo(CharacterDto character) {
+        final BackgroundDto backgroundByCode = backgroundIntegrationService.getBackGroundByCode(character.getBackgroundCode(), character.getRoomId());
+        character.setBackgroundInfo(backgroundByCode);
         return character;
     }
 
