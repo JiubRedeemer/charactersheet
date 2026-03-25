@@ -17,4 +17,5 @@ public class RuleBookProperty {
     private String skillsUrl;
     private String skillsByCodeUrl;
     private String skillsByClassUrl;
+    private String backgroundsUrl;
 }

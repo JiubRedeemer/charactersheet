@@ -6,6 +6,7 @@ import com.jiubredeemer.charactersheet.domain.characterTraits.dto.CharacterTrait
 import com.jiubredeemer.charactersheet.domain.health.dto.HealthDto;
 import com.jiubredeemer.charactersheet.domain.level.dto.LevelDto;
 import com.jiubredeemer.charactersheet.domain.skill.dto.SkillDto;
+import com.jiubredeemer.charactersheet.integration.dto.background.BackgroundDto;
 import lombok.Data;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class CharacterDto {
     private String raceCode;
     private RaceInfoDto raceInfo;
     private String backgroundCode;
+    private BackgroundDto backgroundInfo;
     private Integer proficiencyBonus;
     private Integer armoryClass;
     private Integer bonusArmoryClass;

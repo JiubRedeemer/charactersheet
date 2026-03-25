@@ -2,6 +2,7 @@ package com.jiubredeemer.charactersheet.integration;
 
 import com.jiubredeemer.charactersheet.domain.room.dto.RoomDto;
 import com.jiubredeemer.charactersheet.integration.configuration.RuleBookProperty;
+import com.jiubredeemer.charactersheet.integration.dto.background.BackgroundDto;
 import com.jiubredeemer.charactersheet.integration.dto.clazz.ClazzDto;
 import com.jiubredeemer.charactersheet.integration.dto.race.RaceDto;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,19 @@ public class RuleBookClient {
                 .headers(h -> h.addAll(headers))
                 .retrieve()
                 .toEntity(RoomDto.class);
+        return response.getBody();
+    }
+
+    public BackgroundDto getBackgroundByCode(String code, UUID roomId) {
+        final HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/json");
+
+        ResponseEntity<BackgroundDto> response = restClient.post()
+                .uri(ruleBookProperty.getBaseUrl() + ruleBookProperty.getBackgroundsUrl() + "/" + code)
+                .headers(h -> h.addAll(headers))
+                .body(new RoomIdRequestBody(roomId))
+                .retrieve()
+                .toEntity(BackgroundDto.class);
         return response.getBody();
     }
 }
