@@ -13,6 +13,7 @@ public class BackgroundIntegrationService {
     private final RuleBookClient ruleBookClient;
 
     public BackgroundDto getBackGroundByCode(String code, UUID roomId) {
+        if(code == null) return null;
         return ruleBookClient.getBackgroundByCode(code, roomId);
     }
 }
