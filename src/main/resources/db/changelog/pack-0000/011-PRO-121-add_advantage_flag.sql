@@ -1,0 +1,1 @@
+ALTER TABLE charactersheet.skill add COLUMN advantage_value int4 NULL

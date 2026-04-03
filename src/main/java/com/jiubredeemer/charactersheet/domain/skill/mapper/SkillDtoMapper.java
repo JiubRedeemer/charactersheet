@@ -16,6 +16,7 @@ public class SkillDtoMapper {
         model.setCharacterId(entity.getCharacterId());
         model.setCode(entity.getCode());
         model.setMasteryValue(entity.getMasteryValue());
+        model.setAdvantageValue(entity.getAdvantageValue());
         model.setBonusValue(entity.getBonusValue());
         return model;
     }
@@ -34,6 +35,7 @@ public class SkillDtoMapper {
         entity.setCharacterId(model.getCharacterId());
         entity.setCode(model.getCode());
         entity.setMasteryValue(model.getMasteryValue());
+        entity.setAdvantageValue(model.getAdvantageValue());
         entity.setBonusValue(model.getBonusValue());
         entity.setNew(isNew);
         return entity;

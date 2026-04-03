@@ -7,4 +7,5 @@ public class UpdateMasteryRequest {
     private Boolean isMastery;
     private Integer masteryValue;
     private Long bonusValue;
+    private Integer advantageValue;
 }
