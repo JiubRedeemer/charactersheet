@@ -34,13 +34,15 @@ public class SkillService {
         repository.findByCharacterIdAndCode(characterId, code).ifPresentOrElse(skill -> {
             if (!request.getIsMastery() &&
                     request.getMasteryValue() == null &&
-                    request.getBonusValue() == null) {
+                    request.getBonusValue() == null &&
+                    request.getAdvantageValue() == null) {
                 repository.delete(skill);
             } else {
                 skill.setCharacterId(characterId);
                 skill.setCode(code);
                 skill.setMasteryValue(request.getMasteryValue());
                 skill.setBonusValue(request.getBonusValue());
+                skill.setAdvantageValue(request.getAdvantageValue());
                 repository.save(skill);
             }
         }, () -> {
@@ -54,6 +56,7 @@ public class SkillService {
                 skill.setCode(code);
                 skill.setMasteryValue(request.getMasteryValue());
                 skill.setBonusValue(request.getBonusValue());
+                skill.setAdvantageValue(request.getAdvantageValue());
                 repository.save(skill);
             }
         });

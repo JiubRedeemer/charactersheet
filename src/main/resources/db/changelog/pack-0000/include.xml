@@ -17,5 +17,6 @@
     <include file="008-PRO-100_passives.sql" relativeToChangelogFile="true"/>
     <include file="009-PRO-111_npcs.xml" relativeToChangelogFile="true"/>
     <include file="010-PRO-111-add_npc_unique_visible_flag.sql" relativeToChangelogFile="true"/>
+    <include file="011-PRO-121-add_advantage_flag.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

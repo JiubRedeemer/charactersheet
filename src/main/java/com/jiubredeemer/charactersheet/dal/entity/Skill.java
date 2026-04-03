@@ -17,6 +17,7 @@ public class Skill implements Persistable<UUID> {
     private UUID characterId;
     private String code;
     private Integer masteryValue;
+    private Integer advantageValue;
     private Long bonusValue;
 
     //-----META_FIELDS------
