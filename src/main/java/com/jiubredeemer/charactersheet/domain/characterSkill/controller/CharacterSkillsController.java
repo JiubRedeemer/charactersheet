@@ -26,6 +26,7 @@ public class CharacterSkillsController {
 
     @PutMapping("")
     public CharacterSkillsDto saveCharacterSkill(@RequestBody CharacterSkillsDto characterSkillsDto) {
+        if(characterSkillsDto.getId() != null) return this.updateCharacterSkill(characterSkillsDto.getId(), characterSkillsDto);
         return characterSkillsService.saveCharacterSkill(characterSkillsDto);
     }
 
