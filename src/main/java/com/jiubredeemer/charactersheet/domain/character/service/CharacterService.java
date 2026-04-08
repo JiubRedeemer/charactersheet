@@ -81,6 +81,7 @@ public class CharacterService {
                         .toDto(characters))
                 .map(characterBuilder::enrichLevel)
                 .map(characterBuilder::enrichHealth)
+                .map(characterBuilder::enrichCharacterBio)
                 .findAny()
                 .orElseThrow(() ->
                         new IllegalStateException("Characters was found, but was not built with roomId: %s and userId: %s"
