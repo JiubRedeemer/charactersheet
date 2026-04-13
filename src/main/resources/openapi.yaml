@@ -177,8 +177,453 @@ paths:
                 items:
                   $ref: '#/components/schemas/NpcDto'
 
+  /api/characters/{characterId}/pets:
+    post:
+      summary: Create pet for character
+      operationId: createPet
+      parameters:
+        - name: characterId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePetRequest'
+      responses:
+        '200':
+          description: Pet created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetDto'
+    get:
+      summary: Get pets by character id
+      operationId: getPetsByCharacterId
+      parameters:
+        - name: characterId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of pets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PetDto'
+
+  /api/pets/{petId}:
+    get:
+      summary: Get pet by id
+      operationId: getPetById
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Pet found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetDto'
+        '404':
+          description: Pet not found
+    delete:
+      summary: Logical delete pet by id
+      operationId: deletePetLogicalById
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Pet logically deleted
+
+  /api/pets/{petId}/profile:
+    patch:
+      summary: Update pet profile
+      operationId: updatePetProfile
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetProfileUpdateRequest'
+      responses:
+        '200':
+          description: Pet profile updated
+
+  /api/pets/{petId}/abilities/{abilityCode}/bonus:
+    patch:
+      summary: Update pet ability bonus
+      operationId: updatePetAbilityBonus
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: abilityCode
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BonusValueUpdateRequest'
+      responses:
+        '200':
+          description: Pet ability bonus updated
+
+  /api/pets/{petId}/health/current:
+    patch:
+      summary: Update pet current HP
+      operationId: updatePetCurrentHp
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetHealthCurrentUpdateRequest'
+      responses:
+        '200':
+          description: Pet current HP updated
+
+  /api/pets/{petId}/health/max:
+    patch:
+      summary: Update pet max HP
+      operationId: updatePetMaxHp
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BonusValueUpdateRequest'
+      responses:
+        '200':
+          description: Pet max HP updated
+
+  /api/pets/{petId}/skills:
+    post:
+      summary: Create pet skill
+      operationId: createPetSkill
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetSkillRequest'
+      responses:
+        '200':
+          description: Pet skill created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetSkillDto'
+
+  /api/pets/{petId}/skills/{skillId}:
+    patch:
+      summary: Update pet skill
+      operationId: updatePetSkill
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: skillId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetSkillRequest'
+      responses:
+        '200':
+          description: Pet skill updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetSkillDto'
+    delete:
+      summary: Delete pet skill by id
+      operationId: deletePetSkill
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: skillId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Pet skill deleted
+
 components:
   schemas:
+    PetHealthCurrentUpdateType:
+      type: string
+      enum:
+        - ADD
+        - SUBTRACT
+        - SET
+
+    PetAbilityRequest:
+      type: object
+      properties:
+        abilityCode:
+          type: string
+        bonusValue:
+          type: integer
+          format: int64
+
+    CreatePetRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+          format: int64
+        description:
+          type: string
+        avatar:
+          type: string
+        maxHp:
+          type: integer
+          format: int64
+        currentHp:
+          type: integer
+          format: int64
+        armorClass:
+          type: integer
+          format: int32
+        speed:
+          type: integer
+          format: int32
+        size:
+          type: string
+        creatureType:
+          type: string
+        proficiencyBonus:
+          type: integer
+          format: int32
+        senses:
+          type: string
+        languages:
+          type: string
+        isSummoned:
+          type: boolean
+        isActive:
+          type: boolean
+        abilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/PetAbilityRequest'
+
+    PetProfileUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        age:
+          type: integer
+          format: int64
+        description:
+          type: string
+        avatar:
+          type: string
+        armorClass:
+          type: integer
+          format: int32
+        speed:
+          type: integer
+          format: int32
+        size:
+          type: string
+        creatureType:
+          type: string
+        proficiencyBonus:
+          type: integer
+          format: int32
+        senses:
+          type: string
+        languages:
+          type: string
+        isSummoned:
+          type: boolean
+        isActive:
+          type: boolean
+
+    PetHealthCurrentUpdateRequest:
+      type: object
+      properties:
+        type:
+          $ref: '#/components/schemas/PetHealthCurrentUpdateType'
+        value:
+          type: integer
+          format: int64
+
+    PetSkillRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+
+    BonusValueUpdateRequest:
+      type: object
+      properties:
+        bonusValue:
+          type: integer
+          format: int64
+
+    PetAbilityDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        petId:
+          type: string
+          format: uuid
+        abilityCode:
+          type: string
+        bonusValue:
+          type: integer
+          format: int64
+
+    PetSkillDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        petId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        description:
+          type: string
+
+    PetDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        characterId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        age:
+          type: integer
+          format: int64
+        description:
+          type: string
+        avatar:
+          type: string
+        maxHp:
+          type: integer
+          format: int64
+        currentHp:
+          type: integer
+          format: int64
+        armorClass:
+          type: integer
+          format: int32
+        speed:
+          type: integer
+          format: int32
+        size:
+          type: string
+        creatureType:
+          type: string
+        proficiencyBonus:
+          type: integer
+          format: int32
+        senses:
+          type: string
+        languages:
+          type: string
+        isSummoned:
+          type: boolean
+        isActive:
+          type: boolean
+        abilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/PetAbilityDto'
+        skills:
+          type: array
+          items:
+            $ref: '#/components/schemas/PetSkillDto'
+
     NpcTypeEnum:
       type: string
       description: |
