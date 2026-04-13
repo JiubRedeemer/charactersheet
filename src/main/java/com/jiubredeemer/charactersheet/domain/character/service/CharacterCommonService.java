@@ -92,6 +92,7 @@ public class CharacterCommonService {
             final SkillDto ability = skillDtoMapper.mapSkillShortToDto(abilityShort);
             ability.setCharacterId(characterDto.getId());
             ability.setId(UUID.randomUUID());
+            ability.setMasteryValue(1);
             return ability;
         }).toList();
         return skillService.saveAllSkills(skillsForSave);
