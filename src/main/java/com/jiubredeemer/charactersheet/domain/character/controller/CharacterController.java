@@ -61,6 +61,14 @@ public class CharacterController {
         return characterService.getAbilitiesAndSkillsInfoByCharacterId(id);
     }
 
+    @DeleteMapping("/{id}/logical")
+    public ResponseEntity<Void> deleteCharacterLogical(
+            @Parameter(description = "Логическое удаление персонажа по ID", required = true)
+            @PathVariable UUID id) {
+        characterService.deleteCharacterLogical(id);
+        return ResponseEntity.ok().build();
+    }
+
     @PatchMapping("/{id}/armoryClass/bonus")
     public ResponseEntity<Void> updateArmoryClassBonusValue(
             @Parameter(description = "Запрос на изменение бонусного значения КЗ персонажа", required = true)

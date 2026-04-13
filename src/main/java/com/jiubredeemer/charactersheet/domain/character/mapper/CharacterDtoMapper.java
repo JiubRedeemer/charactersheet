@@ -49,6 +49,7 @@ public class CharacterDtoMapper {
         characterDto.setInitiative(entity.getInitiative());
         characterDto.setBonusInitiative(entity.getBonusInitiative());
         characterDto.setCurrentHpDiceCount(entity.getCurrentHpDiceCount());
+        characterDto.setDeletedAt(entity.getDeletedAt());
         return characterDto;
     }
 

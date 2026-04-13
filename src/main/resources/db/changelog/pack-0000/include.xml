@@ -18,5 +18,6 @@
     <include file="009-PRO-111_npcs.xml" relativeToChangelogFile="true"/>
     <include file="010-PRO-111-add_npc_unique_visible_flag.sql" relativeToChangelogFile="true"/>
     <include file="011-PRO-121-add_advantage_flag.sql" relativeToChangelogFile="true"/>
+    <include file="012-PRO-0-delete_character.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

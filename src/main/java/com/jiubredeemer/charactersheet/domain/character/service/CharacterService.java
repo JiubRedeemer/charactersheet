@@ -19,6 +19,7 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -174,5 +175,12 @@ public class CharacterService {
         final CharacterDto characterDto = findById(characterId);
         final ClazzDto clazzDto = ruleBookClient.getClassByCode(characterDto.getClazzCode(), characterDto.getRoomId());
         characterCommonService.characterRest(characterId, restType, hpDiceCount, characterDto, clazzDto);
+    }
+
+    public void deleteCharacterLogical(UUID characterId) {
+        repository.findById(characterId).ifPresent(character -> {
+            character.setDeletedAt(LocalDateTime.now());
+            repository.save(character);
+        });
     }
 }

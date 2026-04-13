@@ -9,6 +9,21 @@ servers:
   - url: http://localhost:8080
 
 paths:
+  /api/characters/{id}/logical:
+    delete:
+      summary: Logical delete character by id
+      operationId: deleteCharacterLogicalById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Character logically deleted
+
   /api/npcs:
     put:
       summary: Create or update NPC

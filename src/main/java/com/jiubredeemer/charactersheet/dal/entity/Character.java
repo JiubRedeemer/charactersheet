@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -29,6 +30,7 @@ public class Character implements Persistable<UUID> {
     private Integer initiative;
     private Integer bonusInitiative;
     private Integer currentHpDiceCount;
+    private LocalDateTime deletedAt;
 
 
     //-----META_FIELDS------

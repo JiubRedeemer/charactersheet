@@ -9,6 +9,7 @@ import com.jiubredeemer.charactersheet.domain.skill.dto.SkillDto;
 import com.jiubredeemer.charactersheet.integration.dto.background.BackgroundDto;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,6 +34,7 @@ public class CharacterDto {
     private Integer initiative;
     private Integer bonusInitiative;
     private Integer currentHpDiceCount;
+    private LocalDateTime deletedAt;
     private List<AbilityDto> abilities;
     private List<SkillDto> skills;
     private LevelDto level;
