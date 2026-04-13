@@ -74,9 +74,9 @@ public class CharacterService {
     public List<CharacterDto> findAllByRoomIdAndUserId(FindCharacterByUserIdAndRoomIdRequest request) {
         final List<Character> characters;
         if (request.getRoles() != null && (request.getRoles().contains(RoomUserRole.MASTER) || request.getRoles().contains(RoomUserRole.MODERATOR))) {
-            characters = repository.findByRoomId(request.getRoomId());
+            characters = repository.findByRoomIdAndDeletedAtNull(request.getRoomId());
         } else {
-            characters = repository.findByRoomIdAndUserId(request.getRoomId(), request.getUserId());
+            characters = repository.findByRoomIdAndUserIdAndDeletedAtNull(request.getRoomId(), request.getUserId());
         }
         return Stream.of(characterDtoMapper
                         .toDto(characters))

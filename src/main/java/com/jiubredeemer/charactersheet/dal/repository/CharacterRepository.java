@@ -12,5 +12,8 @@ public interface CharacterRepository extends CrudRepository<Character, UUID> {
 
     List<Character> findByRoomIdAndUserId(UUID roomId, UUID userId);
 
-    List<Character> findByRoomId(UUID roomId);
+    List<Character> findByRoomIdAndUserIdAndDeletedAtNull(UUID roomId, UUID userId);
+
+
+    List<Character> findByRoomIdAndDeletedAtNull(UUID roomId);
 }
